@@ -1,7 +1,6 @@
 //import 'dart:html';
 import 'dart:io';
 import 'dart:math';
-import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
@@ -146,7 +145,7 @@ class GameController extends Game {
     c.drawRect(background, backgroundPaint);
     this.player != null ? this.player.render(c) : null;
     //enemies.map((eni) => eni.render(c));
-    
+
     //print( this.state );
     if (this.state == StateGame.menu) {
       this.levelWaitText.render(c);
@@ -202,9 +201,10 @@ class GameController extends Game {
       this.enemyText != null ? this.enemyText.update(t) : null;
       this.desafioStatus != null ? this.desafioStatus.update(t) : null;
       this.levelPercent.update(t);
-      if ((this.gameLevel.ocupacao().toInt() >= this.gameLevel.percentual.toInt()) ||
-           this.gameLevel.ocupacao().toString() == this.gameLevel.percentual.toString() 
-           ) {
+      if ((this.gameLevel.ocupacao().toInt() >=
+              this.gameLevel.percentual.toInt()) ||
+          this.gameLevel.ocupacao().toString() ==
+              this.gameLevel.percentual.toString()) {
         //this.level = this.level +1;
         this.gameLevel.finalcount();
         if (this.enemiesCount() <= 1) {
