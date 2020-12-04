@@ -1,0 +1,4 @@
+enum MarkDirection {
+  vertical,
+  horizontal, 
+}

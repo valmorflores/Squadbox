@@ -1,0 +1,9 @@
+- todo: corte mais rapido
+- todo: analise de angulo
+- todo: passar o risco para area com mais ou menos inimigos
+- todo: firula fase
+- todo: morrer pelo numero de vezes que clica na tela
+- todo: quando muda nivel (muda algo - cor por exemplo)
+- todo: depois que passa de 5mil, 10mil temporizador (time level);
+- todo: grafico de captura
+- todo: 
