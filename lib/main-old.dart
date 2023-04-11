@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:SquadBox/controllers/gameController.dart';
 import 'package:SquadBox/models/enum_game.dart';
-import 'package:flame/util.dart';
+ 
 import 'package:SquadBox/models/theme_model.dart';
 import 'home_prototipo.dart';
 
@@ -14,24 +14,24 @@ import 'home_prototipo.dart';
 GameController gameController = GameController();
 
 void main(){
-   Util flameUtil = Util();
-   runApp( gameController.widget );
+   //////Util flameUtil = Util();
+   /////runApp( gameController.widget );
 
    VerticalDragGestureRecognizer vdrag = VerticalDragGestureRecognizer();
    vdrag.onStart = gameController.onVerticalDragStart;
    vdrag.onEnd = gameController.onVerticalDragEnd;
    vdrag.onUpdate = gameController.onVerticalDragUpdate;
-   flameUtil.addGestureRecognizer(vdrag);
+   ///////flameUtil.addGestureRecognizer(vdrag);
 
    HorizontalDragGestureRecognizer hdrag = HorizontalDragGestureRecognizer();
    hdrag.onStart = gameController.onHorizontalDragStart;
    hdrag.onEnd = gameController.onHorizontalDragEnd;
    hdrag.onUpdate = gameController.onHorizontalDragUpdate;
-   flameUtil.addGestureRecognizer(hdrag);
+   ////flameUtil.addGestureRecognizer(hdrag);
 
    TapGestureRecognizer tapper = TapGestureRecognizer();
    tapper.onTapDown = gameController.onTapDown;
-   flameUtil.addGestureRecognizer(tapper);
+   /////flameUtil.addGestureRecognizer(tapper);
 
 
 

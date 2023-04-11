@@ -1,5 +1,4 @@
 
-import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:SquadBox/components/enemy.dart';

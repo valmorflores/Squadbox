@@ -19,7 +19,7 @@ class _ViewVideoGetLiveState extends State<ViewVideoGetLive> {
         title: Text("Vídeo / Ganhe 1 vida"),
       ),
       body: Center(
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             // Navigate back to first route when tapped.
             Navigator.pop(context);

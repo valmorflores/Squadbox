@@ -17,37 +17,37 @@ class _LevelResetState extends State<LevelReset> {
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          RaisedButton(
+          ElevatedButton(
               child: Text("Go to level 30"),
               onPressed: () {
                 print('Sending reset msg to 30');
                 gameController.resetlevels(30);
               }),
-          RaisedButton(
+          ElevatedButton(
               child: Text("Go to level 35"),
               onPressed: () {
                 print('Sending reset msg to 35');
                 gameController.resetlevels(35);
               }),
-          RaisedButton(
+          ElevatedButton(
               child: Text("Go to level 40"),
               onPressed: () {
                 print('Sending reset msg to 40');
                 gameController.resetlevels(40);
               }),
-          RaisedButton(
+          ElevatedButton(
               child: Text("Go to level +1"),
               onPressed: () {
                 print('Sending reset msg to +1');
                 gameController.resetlevels(gameController.level + 1);
               }),
-          RaisedButton(
+          ElevatedButton(
               child: Text("Go to level -1"),
               onPressed: () {
                 print('Sending reset msg to -1');
                 gameController.resetlevels(gameController.level - 1);
               }),
-          RaisedButton(
+          ElevatedButton(
               child: Text("Reset levels"),
               onPressed: () {
                 print('Sending reset msg');

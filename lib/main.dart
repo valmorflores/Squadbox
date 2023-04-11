@@ -1,12 +1,11 @@
 import 'package:SquadBox/screens/level_menu.dart';
 import 'package:SquadBox/screens/level_reset_position.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:SquadBox/controllers/gameController.dart';
-import 'package:flame/util.dart';
-import 'config.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,12 +29,12 @@ class HomeScreen extends StatelessWidget {
     int _highscore = 0;
     MyGame game;
     Widget oGame;
-    FirebaseAdMob.instance.initialize(appId: ADMOB_APP_ID)
+    /*FirebaseAdMob.instance.initialize(appId: ADMOB_APP_ID)
       ..then((response) {
         myBanner
           ..load()
           ..show();
-      });
+      });*/
     if (oGame == null) {
       game = MyGame(contexto: context);
       game.startgetprefs();
@@ -46,7 +45,7 @@ class HomeScreen extends StatelessWidget {
       }
       game.getStatus();
       _highscore = game.getHightScore();
-      oGame = game.widget;
+      oGame = GameWidget(game: game);
     }
 
     return Scaffold(
@@ -54,7 +53,7 @@ class HomeScreen extends StatelessWidget {
       children: <Widget>[
         Text("Level: ${game.level.toString()}"),
         Text("HighScore: $_highscore"),
-        RaisedButton(
+        ElevatedButton(
             child: Text("Play"),
             onPressed: () {
               Navigator.push(
@@ -64,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                 }),
               );
             }),
-        RaisedButton(
+        ElevatedButton(
             child: Text("Reset levels"),
             onPressed: () {
               Navigator.push(
@@ -75,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                         )),
               );
             }),
-        RaisedButton(
+        ElevatedButton(
             child: Text("Selecionar local"),
             onPressed: () {
               Navigator.push(
@@ -89,7 +88,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   void dispose() {
-    myBanner.dispose();
+    //myBanner.dispose();
     myInterstitial.dispose();
   }
 }
@@ -104,7 +103,7 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   //testDevices: <String>[], // Android emulators are considered test devices
 );
 
-BannerAd myBanner = BannerAd(
+/*BannerAd myBanner = BannerAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
@@ -115,6 +114,7 @@ BannerAd myBanner = BannerAd(
     print("BannerAd event is $event");
   },
 );
+*/
 
 InterstitialAd myInterstitial = InterstitialAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
@@ -133,10 +133,10 @@ class MyGame extends GameController {
 
   MyGame({this.contexto}) {
     context = contexto;
-    Util flameUtil = Util();
+    /////// -- Util flameUtil = Util();
     storage = _storage;
 
-    flameUtil.addGestureRecognizer(VerticalDragGestureRecognizer()
+    /* -- flameUtil.addGestureRecognizer(VerticalDragGestureRecognizer()
       ..onStart = this.onVerticalDragStart
       ..onEnd = this.onVerticalDragEnd
       ..onUpdate = this.onVerticalDragUpdate);
@@ -148,7 +148,7 @@ class MyGame extends GameController {
 
     flameUtil.addGestureRecognizer(
         TapGestureRecognizer()..onTapDown = this.onTapDown);
-
+  */
     @override
     void render(Canvas c) {
       super.render(c);
@@ -199,7 +199,7 @@ class MyGame extends GameController {
   void startgetprefs() async {
     super.startgetprefs();
   }
-
+  
   getStatus() {
     if (this.storage != null) {
       if (this.storage.getInt('level') ?? 0 > 1) {

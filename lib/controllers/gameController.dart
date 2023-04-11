@@ -79,8 +79,8 @@ class GameController extends Game {
   }
 
   void initialize() async {
-    resize(await Flame.util.initialDimensions());
-    Flame.util.fullScreen();
+    //resize();
+    //Flame.util.fullScreen();
 
     // Qual nivel salvo? usa ele claro
     if (this.storage == null) {
@@ -98,7 +98,7 @@ class GameController extends Game {
       // Erro no storage de level
       print('Puts! Erro ao carregar a fase salva');
     }
-
+    this.screenSize = Size(600, 400);
     this.player = Player(this);
     this.arena = Arena(gameController: this);
     this.desafios = Desafios(gameController: this, items: []);
