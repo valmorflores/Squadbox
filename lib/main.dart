@@ -45,7 +45,31 @@ class HomeScreen extends StatelessWidget {
       }
       game.getStatus();
       _highscore = game.getHightScore();
-      oGame = GameWidget(game: game);
+      oGame = GestureDetector(
+        child: GameWidget(game: game),
+        onTapDown: (details) {
+          debugPrint('Tap on game');
+          game.onTapDown(details);
+        },
+        onHorizontalDragStart: (details) {
+          game.onHorizontalDragStart(details);
+        },
+        onHorizontalDragEnd: (details) {
+          game.onHorizontalDragEnd(details);
+        },
+        onHorizontalDragUpdate: (details) {
+          game.onHorizontalDragUpdate(details);
+        },
+        onVerticalDragStart: (details) {
+          game.onVerticalDragStart(details);
+        },
+        onVerticalDragEnd: (details) {
+          game.onVerticalDragEnd(details);
+        },
+        onVerticalDragUpdate: (details) {
+          game.onVerticalDragUpdate(details);
+        },
+      );
     }
 
     return Scaffold(
@@ -199,7 +223,7 @@ class MyGame extends GameController {
   void startgetprefs() async {
     super.startgetprefs();
   }
-  
+
   getStatus() {
     if (this.storage != null) {
       if (this.storage.getInt('level') ?? 0 > 1) {
