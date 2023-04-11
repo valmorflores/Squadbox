@@ -1,6 +1,6 @@
 import 'package:SquadBox/screens/level_menu.dart';
 import 'package:SquadBox/screens/level_reset_position.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -113,10 +113,10 @@ class HomeScreen extends StatelessWidget {
   @override
   void dispose() {
     //myBanner.dispose();
-    myInterstitial.dispose();
+    //myInterstitial.dispose();
   }
 }
-
+/*
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>['flutterio', 'games', 'ads', 'beautiful apps', 'uber'],
   contentUrl: 'https://flutter.io',
@@ -125,7 +125,7 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   //designedForFamilies: false,
   //gender: MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
   //testDevices: <String>[], // Android emulators are considered test devices
-);
+);*/
 
 /*BannerAd myBanner = BannerAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
@@ -140,7 +140,7 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
 );
 */
 
-InterstitialAd myInterstitial = InterstitialAd(
+/*InterstitialAd myInterstitial = InterstitialAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
@@ -149,7 +149,7 @@ InterstitialAd myInterstitial = InterstitialAd(
   listener: (MobileAdEvent event) {
     print("InterstitialAd event is $event");
   },
-);
+);*/
 
 class MyGame extends GameController {
   BuildContext contexto;

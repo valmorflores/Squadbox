@@ -295,15 +295,13 @@ class GameController extends Game {
     //  if (state == StateGame.getlivebyvideo) {
     this.state = StateGame.runningVideo;
 
-    /*
-    run and wait 
+    //run and wait
     Navigator.push(
         this.context,
         MaterialPageRoute(
             builder: (context) => ViewVideoGetLive(
                   parametro: '',
                 )));
-    */
 
     // }
 
