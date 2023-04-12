@@ -16,71 +16,68 @@ class Level001040 {
     this.gameController.gameLevel.percentual = 70;
 
     int lin = 200, col = 20;
-     for (var i = 0; i<10; i++){
-        this.gameController.blocks.add(new Blocks(
-            gameController: this.gameController,
-            left: col.toDouble() +0.0 ,
-            top: lin.toDouble() +0.0,
-            width: 20,
-            height: 20,
-            blockColor: Colors.lightBlueAccent ));
+    for (var i = 0; i < 10; i++) {
+      this.gameController.blocks.add(new Blocks(
+          gameController: this.gameController,
+          left: col.toDouble() + 0.0,
+          top: lin.toDouble() + 0.0,
+          width: 20,
+          height: 20,
+          blockColor: Colors.red));
 
-        this.gameController.blocks.add(new Blocks(
-            gameController: this.gameController,
-            left: col.toDouble() +0.0,
-            top: lin.toDouble() +50.0,
-            width: 20,
-            height: 20,
-            blockColor: Colors.lightBlueAccent ));
+      this.gameController.blocks.add(new Blocks(
+          gameController: this.gameController,
+          left: col.toDouble() + 0.0,
+          top: lin.toDouble() + 50.0,
+          width: 20,
+          height: 20,
+          blockColor: Colors.lightBlueAccent));
 
-        this.gameController.blocks.add(new Blocks(
-            gameController: this.gameController,
-            left: col.toDouble() +0.0 ,
-            top: lin.toDouble() +100.0,
-            width: 20,
-            height: 20,
-            blockColor: Colors.lightBlueAccent ));
+      this.gameController.blocks.add(new Blocks(
+          gameController: this.gameController,
+          left: col.toDouble() + 0.0,
+          top: lin.toDouble() + 100.0,
+          width: 20,
+          height: 20,
+          blockColor: Colors.yellow));
 
-
-
-        col+=30;
-        if ( col > this.gameController.screenSize.width ){
-           lin += 10 + (i);
-           col = ( i+15 );
-        }
+      col += 30;
+      if (col > this.gameController.screenSize.width) {
+        lin += 10 + (i);
+        col = (i + 15);
+      }
     }
-
 
     lin = 10;
     col = 20;
-    for (var i = 0; i<10; i++){
-        this.gameController.enemies.add(new Enemy(
-            gameController: this.gameController,
-            x: col.toDouble() +0.0 ,
-            y: lin.toDouble() +0.0,
-            difficulty: 20,
-            enemyType: EnemyType.chefao));
+    for (var i = 0; i < 10; i++) {
+      this.gameController.enemies.add(new Enemy(
+          gameController: this.gameController,
+          x: col.toDouble() + 0.0,
+          y: lin.toDouble() + 0.0,
+          difficulty: 20,
+          enemyType: EnemyType.chefao));
 
-        col+=30;
-        if ( col > this.gameController.screenSize.width ){
-           lin += 10 + (i);
-           col = ( i+15 );
-        }
+      col += 30;
+      if (col > this.gameController.screenSize.width) {
+        lin += 10 + (i);
+        col = (i + 15);
+      }
     }
 
-    for (var i = 0; i<15; i++){
-        this.gameController.enemies.add(new Enemy(
-            gameController: this.gameController,
-            x: lin.toDouble() +0.0,
-            y: col.toDouble() +0.0,
-            difficulty: 20,
-            enemyType: EnemyType.gerente));
+    for (var i = 0; i < 15; i++) {
+      this.gameController.enemies.add(new Enemy(
+          gameController: this.gameController,
+          x: lin.toDouble() + 0.0,
+          y: col.toDouble() + 0.0,
+          difficulty: 20,
+          enemyType: EnemyType.gerente));
 
-        col+=30;
-        if ( col > this.gameController.screenSize.width ){
-           lin += 10 + (i);
-           col = ( i+15 );
-        }
+      col += 30;
+      if (col > this.gameController.screenSize.width) {
+        lin += 10 + (i);
+        col = (i + 15);
+      }
     }
     this.gameController.enemies.add(new Enemy(
         gameController: this.gameController,
