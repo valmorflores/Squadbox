@@ -27,6 +27,8 @@ import 'package:SquadBox/models/enum_tools.dart';
 import 'package:SquadBox/components/levels/level_001_001.dart';
 import 'package:SquadBox/components/levels/level_001_008.dart';
 
+import '../components/levels/level_001_041.dart';
+
 
 class GameLevel {
 
@@ -216,8 +218,14 @@ class GameLevel {
       else if ( this.gameController.level >= 39 && this.gameController.level <= 39 ){
         Level001039(gameController: this.gameController);
       }
-      else if ( this.gameController.level >= 40 && this.gameController.level <= 99 ){
+      else if ( this.gameController.level == 40 ){
         Level001040(gameController: this.gameController);
+      }
+      else if ( this.gameController.level == 41 ){
+        Level001041(gameController: this.gameController);
+      }
+      else if ( this.gameController.level >= 40 && this.gameController.level <= 99 ){
+        Level001041(gameController: this.gameController);
       }
       else if ( this.gameController.level >= 100 ){         
          this.gameController.enemies.add( new Enemy(gameController: this.gameController, x: 50, y: 50, difficulty: 10, enemyType: EnemyType.chefao ));
