@@ -98,8 +98,12 @@ class GameController extends Game {
       // Erro no storage de level
       print('Puts! Erro ao carregar a fase salva');
     }
-    this.screenSize = Size(
-        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+    if (context == null) {
+      this.screenSize = Size(400, 400);
+    } else {
+      this.screenSize = Size(MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height);
+    }
     this.player = Player(this);
     this.arena = Arena(gameController: this);
     this.desafios = Desafios(gameController: this, items: []);
