@@ -75,10 +75,29 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: <Widget>[
+        ListTile(
+            title: Text(
+          'Squadbox',
+          style: TextStyle(fontSize: 28),
+        )),
+        ListTile(
+            title: Text(
+          'version 1.0.01',
+          style: TextStyle(fontSize: 11),
+        )),
         Text("Level: ${game.level.toString()}"),
         Text("HighScore: $_highscore"),
+        SizedBox(
+          height: 55,
+        ),
         ElevatedButton(
-            child: Text("Play"),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "Play",
+                style: TextStyle(fontSize: 64),
+              ),
+            ),
             onPressed: () {
               Navigator.push(
                 context,
@@ -87,6 +106,9 @@ class HomeScreen extends StatelessWidget {
                 }),
               );
             }),
+        SizedBox(
+          height: 5,
+        ),
         ElevatedButton(
             child: Text("Reset levels"),
             onPressed: () {
@@ -98,6 +120,9 @@ class HomeScreen extends StatelessWidget {
                         )),
               );
             }),
+        SizedBox(
+          height: 5,
+        ),
         ElevatedButton(
             child: Text("Selecionar local"),
             onPressed: () {
