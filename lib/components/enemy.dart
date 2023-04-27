@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:SquadBox/components/busted_text.dart';
+import 'package:SquadBox/components/escaped_text.dart';
 import 'package:flutter/material.dart';
 import 'package:SquadBox/components/blocks.dart';
 import 'package:SquadBox/components/mark.dart';
@@ -24,6 +25,7 @@ class Enemy {
   bool isGoingToPrision = false;
   bool isCaptured = false;
   bool isFree = false;
+  bool isVisible = true;
   EnemieDirection direcao;
   EnemyType enemyType;
   double size = 10;
@@ -31,6 +33,7 @@ class Enemy {
   int limited = 0;
   int qtdtolimited = 10;
   BustedText bustedText;
+  EscapedText escapedText;
 
   Enemy(
       {this.gameController,
@@ -92,6 +95,10 @@ class Enemy {
     if (this.bustedText != null) {
       this.bustedText.render(c);
     }
+
+    if (this.escapedText != null) {
+      this.escapedText.render(c);
+    }
   }
 
   void update(double t) {
@@ -121,6 +128,14 @@ class Enemy {
                 this.limited = 0;
               }
               this.walking = 0;
+            }
+            if (this.isFree && this.isVisible) {
+              this.isVisible = false;
+              this.escapedText = EscapedText(
+                  gameController: this.gameController,
+                  enemyType: this.enemyType,
+                  top: this.enemyRect.top,
+                  left: this.enemyRect.left);
             }
             if (this.limited > 200) {
               print(this.hashCode.toString() + ': personagem foi capturado :D');
@@ -212,11 +227,20 @@ class Enemy {
           }
         }
       }
+      //Eliminate busted message
       if (this.bustedText != null) {
         if (this.bustedText.destroy()) {
           this.bustedText = null;
         } else {
           this.bustedText.update(t);
+        }
+      }
+      //Eliminate escaped message
+      if (this.escapedText != null) {
+        if (this.escapedText.destroy()) {
+          this.escapedText = null;
+        } else {
+          this.escapedText.update(t);
         }
       }
     }
