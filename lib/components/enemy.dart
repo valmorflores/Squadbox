@@ -8,6 +8,7 @@ import 'package:SquadBox/controllers/gameController.dart';
 import 'package:SquadBox/models/enum_enemy.dart';
 import 'package:SquadBox/models/enum_game.dart';
 import 'package:SquadBox/models/enum_state.dart';
+import '../models/enum_colision_blocktype_detect.dart';
 import 'enum_enemy.dart';
 
 class Enemy {
@@ -83,15 +84,14 @@ class Enemy {
     Paint enemyEyeColor = Paint()..color = color;
     c.drawRect(enemyEyeRect, enemyEyeColor);
 
-    if ( this.bustedText != null ){
+    if (this.bustedText != null) {
       this.bustedText.render(c);
     }
-
   }
 
   void update(double t) {
     bool colidiu;
-    if (!isDead) {      
+    if (!isDead) {
       if (false /*killif()*/) {
         --this.gameController.inAnalise;
       } else {
@@ -99,7 +99,7 @@ class Enemy {
         Offset toDirection = Offset(0, 0);
         if (!this.isGoingToPrision && !this.isCaptured) {
           detectColisionMarks();
-          if (!(colidiu = detectColisionBlocks())) {
+          if (!(colidiu = detectColisionBlocks(ColisionBlockTypeDetect.all))) {
             colidiu = detectColisionLimit();
           }
           if (this.limited < 99999999) {
@@ -107,9 +107,7 @@ class Enemy {
             if (colidiu) {
               if (this.walking <= this.qtdtolimited) {
                 this.limited = this.limited + 1;
-              }
-              else
-              {
+              } else {
                 // zera a contagem de limitação
                 this.limited = 0;
               }
@@ -119,17 +117,18 @@ class Enemy {
               print(this.hashCode.toString() + ': personagem foi capturado :D');
               this.limited = 99999999;
               this.isCaptured = true;
-              this.health = ( this.health * 0.50 ).toInt();
-              this.bustedText = BustedText(gameController: this.gameController,
-                   enemyType: this.enemyType,
-                   top: this.enemyRect.top, left: this.enemyRect.left );
-              
+              this.health = (this.health * 0.50).toInt();
+              this.bustedText = BustedText(
+                  gameController: this.gameController,
+                  enemyType: this.enemyType,
+                  top: this.enemyRect.top,
+                  left: this.enemyRect.left);
             }
           }
         }
 
         if (this.isCaptured && !this.isGoingToPrision) {
-          enemyRect = Rect.fromLTWH( enemyRect.left, enemyRect.top, size, size);
+          enemyRect = Rect.fromLTWH(enemyRect.left, enemyRect.top, size, size);
         } else {
           // Vai para
           if (direcao == EnemieDirection.up) {
@@ -202,14 +201,12 @@ class Enemy {
           }
         }
       }
-      if ( this.bustedText != null ){
-         if ( this.bustedText.destroy() ){
-           this.bustedText = null;
-         }
-         else
-         { 
-            this.bustedText.update(t);
-         }
+      if (this.bustedText != null) {
+        if (this.bustedText.destroy()) {
+          this.bustedText = null;
+        } else {
+          this.bustedText.update(t);
+        }
       }
     }
     enemyEyeRect = Rect.fromLTWH(
@@ -290,7 +287,7 @@ class Enemy {
     return lcolide;
   }
 
-  bool detectColisionBlocks() {
+  bool detectColisionBlocks(ColisionBlockTypeDetect colisionBlockTypeDetect) {
     Offset posicao;
     bool lcolide = false;
     this.gameController.blocks.forEach((Blocks element) {
@@ -370,7 +367,14 @@ class Enemy {
             }
           }
           //print( 'Tocou:' + element.blockColor.toString() );
-          lcolide = true;
+          if (colisionBlockTypeDetect == ColisionBlockTypeDetect.all) {
+            lcolide = true;
+          } else if (colisionBlockTypeDetect ==
+              ColisionBlockTypeDetect.onlyPortal) {
+            if (element.isPortal) {
+              lcolide = true;
+            }
+          }
         }
       }
     });

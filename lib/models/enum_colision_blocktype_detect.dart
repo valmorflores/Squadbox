@@ -1,0 +1,1 @@
+enum ColisionBlockTypeDetect { all, onlyPortal }
