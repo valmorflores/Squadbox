@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/timer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,6 +36,8 @@ import 'package:SquadBox/models/enum_state.dart';
 import 'package:SquadBox/models/enum_tools.dart';
 import 'package:SquadBox/screens/view_video_get_live.dart';
 
+import '../components/timer_text.dart';
+
 class GameController extends Game {
   SharedPreferences storage;
   Size screenSize;
@@ -59,6 +62,7 @@ class GameController extends Game {
   HealthBar healthBar;
   ScoreText scoreText;
   LevelText levelText;
+  TimerText timerText;
   LevelWaitText levelWaitText;
   LevelCounting levelCounting;
   LevelGameOverText levelGameOverText;
@@ -74,6 +78,9 @@ class GameController extends Game {
 
   GameLevel gameLevel;
 
+  Timer interval;
+  int elapsedSecs;
+
   GameController() {
     initialize();
   }
@@ -81,6 +88,15 @@ class GameController extends Game {
   void initialize() async {
     //resize();
     //Flame.util.fullScreen();
+
+    Timer countdown = Timer(5);
+    elapsedSecs = 0;
+    interval = Timer(
+      1,
+      onTick: () => elapsedSecs += 1,
+      repeat: true,
+    );
+    interval.start();
 
     // Qual nivel salvo? usa ele claro
     if (this.storage == null) {
@@ -111,6 +127,7 @@ class GameController extends Game {
     this.healthBar = HealthBar(gameController: this);
     this.scoreText = ScoreText(gameController: this);
     this.levelText = LevelText(gameController: this);
+    this.timerText = TimerText(gameController: this);
     this.ocupacaoText = OcupacaoText(gameController: this);
     this.enemyText = EnemyText(gameController: this);
     this.levelWaitText = LevelWaitText(gameController: this);
@@ -180,6 +197,9 @@ class GameController extends Game {
     if (this.levelText != null) {
       this.state != StateGame.gameover ? this.levelText.render(c) : null;
     }
+    if (this.timerText != null) {
+      this.state != StateGame.gameover ? this.timerText.render(c) : null;
+    }
 
     this.state != StateGame.gameover ? this.enemyText.render(c) : null;
     this.ocupacaoText.render(c);
@@ -189,6 +209,7 @@ class GameController extends Game {
   void update(double t) {
     if (this.state != StateGame.paused &&
         this.state != StateGame.runningVideo) {
+      interval.update(t);
       this.marks.removeWhere((Mark mark) => mark.isDead);
       this.blocks.removeWhere((Blocks block) => block.isDead);
       this.enemies.removeWhere((Enemy enemie) => enemie.isDead);
@@ -197,6 +218,7 @@ class GameController extends Game {
       this.marks.forEach((element) => element.update(t));
       this.scoreText != null ? this.scoreText.update(t) : null;
       this.levelText != null ? this.levelText.update(t) : null;
+      this.timerText != null ? this.timerText.update(t) : null;
       this.healthBar != null ? this.healthBar.update(t) : null;
       this.gameLevel != null ? this.gameLevel.update(t) : null;
       this.levelWaitText != null ? this.levelWaitText.update(t) : null;
