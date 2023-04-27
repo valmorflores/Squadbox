@@ -75,13 +75,12 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: <Widget>[
+        SizedBox(height: 30,),
         ListTile(
             title: Text(
-          'Squadbox',
-          style: TextStyle(fontSize: 28),
-        )),
-        ListTile(
-            title: Text(
+          'Squadbox',          
+          style: TextStyle(fontSize: 28),),
+          subtitle: Text(
           'version 1.0.01',
           style: TextStyle(fontSize: 11),
         )),

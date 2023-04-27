@@ -96,7 +96,7 @@ class LevelGameOverText {
       painterTitle.layout();
       positionTitle = Offset(
         (this.gameController.screenSize.width - painterTitle.width)-20,
-        30,
+        50,
         /*,
         ,*/
       );
