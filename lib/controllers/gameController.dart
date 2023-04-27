@@ -87,7 +87,7 @@ class GameController extends Game {
 
   void initialize() async {
     //resize();
-    //Flame.util.fullScreen();
+    Flame.device.fullScreen();
 
     Timer countdown = Timer(5);
     elapsedSecs = 0;
