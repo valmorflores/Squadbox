@@ -23,6 +23,7 @@ class Enemy {
   bool isDead = false;
   bool isGoingToPrision = false;
   bool isCaptured = false;
+  bool isFree = false;
   EnemieDirection direcao;
   EnemyType enemyType;
   double size = 10;
@@ -36,6 +37,7 @@ class Enemy {
       double x,
       double y,
       int difficulty = 50,
+      isFree = false,
       this.enemyType: EnemyType.gangster}) {
     health = 100;
     dificuldade = difficulty;
@@ -68,6 +70,9 @@ class Enemy {
     } else if (this.enemyType == EnemyType.gerente) {
       return Color.fromRGBO(0, 255, 50, 1 * health / 100);
     } else {
+      if (this.isFree) {
+        return Color.fromRGBO(20, 20, 20, 1 * health / 100);
+      }
       return Color.fromRGBO(0, 0, 0, 1 * health / 100);
     }
   }
@@ -97,8 +102,12 @@ class Enemy {
       } else {
         double stepDistance = speed * t;
         Offset toDirection = Offset(0, 0);
-        if (!this.isGoingToPrision && !this.isCaptured) {
+        if (!this.isGoingToPrision && !this.isCaptured && !this.isFree) {
           detectColisionMarks();
+          if (detectColisionBlocks(ColisionBlockTypeDetect.onlyPortal)) {
+            debugPrint('isFree [true]');
+            this.isFree = true;
+          }
           if (!(colidiu = detectColisionBlocks(ColisionBlockTypeDetect.all))) {
             colidiu = detectColisionLimit();
           }
@@ -127,7 +136,9 @@ class Enemy {
           }
         }
 
-        if (this.isCaptured && !this.isGoingToPrision) {
+        if (this.isFree && !this.isGoingToPrision) {
+          enemyRect = Rect.fromLTWH(enemyRect.left, enemyRect.top, size, size);
+        } else if (this.isCaptured && !this.isGoingToPrision) {
           enemyRect = Rect.fromLTWH(enemyRect.left, enemyRect.top, size, size);
         } else {
           // Vai para
@@ -373,6 +384,7 @@ class Enemy {
               ColisionBlockTypeDetect.onlyPortal) {
             if (element.isPortal) {
               lcolide = true;
+              return lcolide;
             }
           }
         }
