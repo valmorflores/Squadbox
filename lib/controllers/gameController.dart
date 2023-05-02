@@ -1,6 +1,7 @@
 //import 'dart:html';
 import 'dart:io';
 import 'dart:math';
+import 'package:SquadBox/components/health_text.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -65,6 +66,7 @@ class GameController extends FlameGame {
   ScoreText scoreText;
   LevelText levelText;
   TimerText timerText;
+  HealthText healthText;
   LevelWaitText levelWaitText;
   LevelCounting levelCounting;
   LevelGameOverText levelGameOverText;
@@ -133,6 +135,7 @@ class GameController extends FlameGame {
     this.scoreText = ScoreText(gameController: this);
     this.levelText = LevelText(gameController: this);
     this.timerText = TimerText(gameController: this);
+    this.healthText = HealthText(gameController: this);
     this.ocupacaoText = OcupacaoText(gameController: this);
     this.enemyText = EnemyText(gameController: this);
     this.levelWaitText = LevelWaitText(gameController: this);
@@ -205,7 +208,9 @@ class GameController extends FlameGame {
     if (this.timerText != null) {
       this.state != StateGame.gameover ? this.timerText.render(c) : null;
     }
-
+    if (this.healthText != null) {
+      this.state != StateGame.gameover ? this.healthText.render(c) : null;
+    }
     this.state != StateGame.gameover ? this.enemyText.render(c) : null;
     this.ocupacaoText.render(c);
     //print( 'render now: ' + this.blocks.length.toString());
@@ -225,6 +230,7 @@ class GameController extends FlameGame {
       this.levelText != null ? this.levelText.update(t) : null;
       this.timerText != null ? this.timerText.update(t) : null;
       this.healthBar != null ? this.healthBar.update(t) : null;
+      this.healthText != null ? this.healthText.update(t) : null;
       this.gameLevel != null ? this.gameLevel.update(t) : null;
       this.levelWaitText != null ? this.levelWaitText.update(t) : null;
       this.levelCounting != null ? this.levelCounting.update(t) : null;
@@ -233,6 +239,15 @@ class GameController extends FlameGame {
       this.enemyText != null ? this.enemyText.update(t) : null;
       this.desafioStatus != null ? this.desafioStatus.update(t) : null;
       this.levelPercent.update(t);
+
+      if (this.gameLevel.fail() != FailsGame.none &&
+          this.state == StateGame.playing) {
+        this.lifes -= this.livedown;
+        this.livedown = 0;
+        this.state = StateGame.gameover;
+        this.gameLevel.finalgameover();
+      }
+
       if ((this.gameLevel.ocupacao().toInt() >=
               this.gameLevel.percentual.toInt()) ||
           this.gameLevel.ocupacao().toString() ==
@@ -245,12 +260,6 @@ class GameController extends FlameGame {
             this.gameLevel.start();
           }
         }
-      }
-      if (this.gameLevel.fail() != FailsGame.none) {
-        this.lifes -= this.livedown;
-        this.livedown = 0;
-        this.state = StateGame.gameover;
-        this.gameLevel.finalgameover();
       }
 
       add(
