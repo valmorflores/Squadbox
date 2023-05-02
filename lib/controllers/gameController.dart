@@ -1,8 +1,10 @@
 //import 'dart:html';
 import 'dart:io';
 import 'dart:math';
+import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/particles.dart';
 import 'package:flame/timer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,7 @@ import 'package:SquadBox/screens/view_video_get_live.dart';
 
 import '../components/timer_text.dart';
 
-class GameController extends Game {
+class GameController extends FlameGame {
   SharedPreferences storage;
   Size screenSize;
   BuildContext context;
@@ -84,6 +86,9 @@ class GameController extends Game {
   GameController() {
     initialize();
   }
+
+  Random rnd = Random();
+  Vector2 randomVector2() => (Vector2.random(rnd) - Vector2.random(rnd)) * 200;
 
   void initialize() async {
     //resize();
@@ -232,19 +237,35 @@ class GameController extends Game {
               this.gameLevel.percentual.toInt()) ||
           this.gameLevel.ocupacao().toString() ==
               this.gameLevel.percentual.toString()) {
-        //this.level = this.level +1;
-        this.gameLevel.finalcount();
-        if (this.enemiesCount() <= 1) {
-          this.gameLevel.up();
-          this.gameLevel.startlevel();
-          this.gameLevel.start();
+        if (this.gameLevel.missionSuccess()) {
+          this.gameLevel.finalcount();
+          if (this.enemiesCount() <= 1) {
+            this.gameLevel.up();
+            this.gameLevel.startlevel();
+            this.gameLevel.start();
+          }
         }
-      } else if (this.gameLevel.fail() != FailsGame.none) {
+      }
+      if (this.gameLevel.fail() != FailsGame.none) {
         this.lifes -= this.livedown;
         this.livedown = 0;
         this.state = StateGame.gameover;
         this.gameLevel.finalgameover();
       }
+
+      add(
+        ParticleSystemComponent(
+          particle: Particle.generate(
+            count: 10,
+            generator: (i) => AcceleratedParticle(
+              acceleration: randomVector2(),
+              child: CircleParticle(
+                paint: Paint()..color = Colors.red,
+              ),
+            ),
+          ),
+        ),
+      );
     }
     this.tools.update(t);
     //else if (player.currentHealt<=0){

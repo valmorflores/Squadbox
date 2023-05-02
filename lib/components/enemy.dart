@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 import 'package:SquadBox/components/busted_text.dart';
 import 'package:SquadBox/components/escaped_text.dart';
+import 'package:flame/components.dart';
+import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
 import 'package:SquadBox/components/blocks.dart';
 import 'package:SquadBox/components/mark.dart';
@@ -11,9 +14,11 @@ import 'package:SquadBox/models/enum_game.dart';
 import 'package:SquadBox/models/enum_state.dart';
 import '../models/enum_colision_blocktype_detect.dart';
 import 'enum_enemy.dart';
+import 'particle_explosion.dart';
 
 class Enemy {
   final GameController gameController;
+
   int health = 100;
   int damage = 0;
   int dificuldade = 0;
@@ -114,6 +119,7 @@ class Enemy {
           if (detectColisionBlocks(ColisionBlockTypeDetect.onlyPortal)) {
             debugPrint('isFree [true]');
             this.isFree = true;
+            // todo: Effect
           }
           if (!(colidiu = detectColisionBlocks(ColisionBlockTypeDetect.all))) {
             colidiu = detectColisionLimit();

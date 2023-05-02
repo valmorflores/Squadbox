@@ -146,6 +146,28 @@ class GameLevel {
     return fail;
   }
 
+  bool missionSuccess() {
+    bool lSuccess = true;
+    if (this.gameController.state == StateGame.playing) {
+      this.gameController.desafios.items.forEach((f) {
+        if (f.desafio == DesafiosGame.capturar) {
+          int q = 0;
+          this.gameController.enemies.forEach((enemy) {
+            if (enemy.enemyType == f.enemytype) {
+              if (enemy.isCaptured) {
+                ++q;
+              }
+            }
+          });
+          if (q < f.quantidade) {
+            lSuccess = false;
+          }
+        }
+      });
+    }
+    return lSuccess;
+  }
+
   void extras() {
     print('Extras para fase: ' + this.gameController.level.toString());
     // Ferramenta basica, todas as fases;
