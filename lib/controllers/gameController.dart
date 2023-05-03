@@ -241,7 +241,8 @@ class GameController extends FlameGame {
       this.levelPercent.update(t);
 
       if (this.gameLevel.fail() != FailsGame.none &&
-          ( this.state == StateGame.playing || this.state == StateGame.gameover)) {
+          (this.state == StateGame.playing ||
+              this.state == StateGame.gameover)) {
         this.lifes -= this.livedown;
         this.livedown = 0;
         this.state = StateGame.gameover;
@@ -252,7 +253,7 @@ class GameController extends FlameGame {
               this.gameLevel.percentual.toInt()) ||
           this.gameLevel.ocupacao().toString() ==
               this.gameLevel.percentual.toString()) {
-        if (this.player.currentHealt<=0){
+        if (this.player.currentHealt <= 0) {
           // End, gameover
         } else if (this.gameLevel.missionSuccess()) {
           this.gameLevel.finalcount();
@@ -355,13 +356,13 @@ class GameController extends FlameGame {
     this.state = StateGame.runningVideo;
 
     //run and wait
-    Navigator.push(
+    /*Navigator.push(
         this.context,
         MaterialPageRoute(
             builder: (context) => ViewVideoGetLive(
                   parametro: '',
                 )));
-
+    */
     // }
 
     // run and wait
@@ -371,14 +372,14 @@ class GameController extends FlameGame {
   _navigateAndWait(BuildContext context) async {
     // Navigator.push returns a Future that completes after calling
     // Navigator.pop on the Selection Screen.
-    final result = await Navigator.push(
+    /*final result = await Navigator.push(
       context,
       // Create the SelectionScreen in the next step.
       MaterialPageRoute(
           builder: (context) => ViewVideoGetLive(
                 parametro: '',
               )),
-    );
+    );*/
 
     /*Scaffold.of(this.context)
       ..removeCurrentSnackBar()

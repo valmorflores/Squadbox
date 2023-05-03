@@ -28,6 +28,7 @@ class Enemy {
   Rect enemyEyeRect;
   bool isDead = false;
   bool isGoingToPrision = false;
+  bool isGoingToEscape = false;
   bool isCaptured = false;
   bool isFree = false;
   bool isVisible = true;
@@ -114,7 +115,10 @@ class Enemy {
       } else {
         double stepDistance = speed * t;
         Offset toDirection = Offset(0, 0);
-        if (!this.isGoingToPrision && !this.isCaptured && !this.isFree) {
+        if (!this.isGoingToEscape &&
+            !this.isGoingToPrision &&
+            !this.isCaptured &&
+            !this.isFree) {
           detectColisionMarks();
           if (detectColisionBlocks(ColisionBlockTypeDetect.onlyPortal)) {
             debugPrint('isFree [true]');
@@ -158,9 +162,11 @@ class Enemy {
           }
         }
 
-        if (this.isFree && !this.isGoingToPrision) {
+        if (this.isFree && !this.isGoingToPrision && !this.isGoingToEscape) {
           enemyRect = Rect.fromLTWH(enemyRect.left, enemyRect.top, size, size);
-        } else if (this.isCaptured && !this.isGoingToPrision) {
+        } else if (this.isCaptured &&
+            !this.isGoingToPrision &&
+            !this.isGoingToEscape) {
           enemyRect = Rect.fromLTWH(enemyRect.left, enemyRect.top, size, size);
         } else {
           // Vai para
@@ -201,7 +207,7 @@ class Enemy {
                 .setInt('highscore', this.gameController.score);
           }
           isDead = (isDead || this.enemyRect.top <= 0);
-        } else if (!isCaptured) {
+        } else if (!isCaptured && !this.isGoingToEscape) {
           //print( enemyRect.bottom.toString() );
           if (this.gameController.state == StateGame.playing) {
             if (this.gameController.inAnalise > 0) {
@@ -282,13 +288,18 @@ class Enemy {
   }
 
   void goEscape() {
-    if (!this.isGoingToPrision) {
+    if (!this.isGoingToEscape) {
       print('Go to escape area: ' + this.hashCode.toString());
-      this.isGoingToPrision = true;
+      this.isGoingToEscape = true;
       this.direcao = EnemieDirection.down;
       this.size = this.size * 1.15;
-      this.enemyRect = Rect.fromLTWH(this.enemyRect.left,
-          this.gameController.screenSize.height - 50, size * 2, size * 2);
+      /*this.enemyRect = Rect.fromLTWH(this.enemyRect.left,
+          this.gameController.screenSize.height - 50, size * 2, size * 2);*/
+      this.enemyRect = Rect.fromLTWH(
+          this.enemyRect.left,
+          this.enemyRect.top + (this.gameController.screenSize.height / 4),
+          size * 2,
+          size * 2);
     }
   }
 
