@@ -241,7 +241,7 @@ class GameController extends FlameGame {
       this.levelPercent.update(t);
 
       if (this.gameLevel.fail() != FailsGame.none &&
-          this.state == StateGame.playing) {
+          ( this.state == StateGame.playing || this.state == StateGame.gameover)) {
         this.lifes -= this.livedown;
         this.livedown = 0;
         this.state = StateGame.gameover;
@@ -252,7 +252,9 @@ class GameController extends FlameGame {
               this.gameLevel.percentual.toInt()) ||
           this.gameLevel.ocupacao().toString() ==
               this.gameLevel.percentual.toString()) {
-        if (this.gameLevel.missionSuccess()) {
+        if (this.player.currentHealt<=0){
+          // End, gameover
+        } else if (this.gameLevel.missionSuccess()) {
           this.gameLevel.finalcount();
           if (this.enemiesCount() <= 1) {
             this.gameLevel.up();
