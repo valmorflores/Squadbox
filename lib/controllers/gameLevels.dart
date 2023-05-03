@@ -30,6 +30,10 @@ import 'package:SquadBox/components/levels/level_001_008.dart';
 
 import '../components/levels/level_001_041.dart';
 import '../components/levels/level_001_043.dart';
+import '../components/levels/level_001_044.dart';
+import '../components/levels/level_001_045.dart';
+import '../components/levels/level_001_046.dart';
+import '../components/levels/level_001_047.dart';
 
 class GameLevel {
   int level = 0;
@@ -233,6 +237,14 @@ class GameLevel {
       Level001042(gameController: this.gameController);
     } else if (this.gameController.level == 43) {
       Level001043(gameController: this.gameController);
+    } else if (this.gameController.level == 44) {
+      Level001044(gameController: this.gameController);
+    } else if (this.gameController.level == 45) {
+      Level001045(gameController: this.gameController);
+    } else if (this.gameController.level == 46) {
+      Level001046(gameController: this.gameController);
+    } else if (this.gameController.level == 47) {
+      Level001047(gameController: this.gameController);
     } else if (this.gameController.level >= 4 &&
         this.gameController.level <= 80) {
       Level001043(gameController: this.gameController);
