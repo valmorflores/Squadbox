@@ -119,6 +119,7 @@ class Enemy {
           if (detectColisionBlocks(ColisionBlockTypeDetect.onlyPortal)) {
             debugPrint('isFree [true]');
             this.isFree = true;
+            this.goEscape();
             // todo: Effect
           }
           if (!(colidiu = detectColisionBlocks(ColisionBlockTypeDetect.all))) {
@@ -165,6 +166,9 @@ class Enemy {
           // Vai para
           if (direcao == EnemieDirection.up) {
             toDirection = Offset(0, -10);
+          }
+          if (direcao == EnemieDirection.down) {
+            toDirection = Offset(0, 10);
           }
           if (direcao == EnemieDirection.leftup) {
             toDirection = Offset(-10, -10);
@@ -274,6 +278,17 @@ class Enemy {
       this.size = this.size * 1.15;
       this.enemyRect = Rect.fromLTWH(this.enemyRect.left,
           this.gameController.screenSize.height - 20, size * 2, size * 2);
+    }
+  }
+
+  void goEscape() {
+    if (!this.isGoingToPrision) {
+      print('Go to escape area: ' + this.hashCode.toString());
+      this.isGoingToPrision = true;
+      this.direcao = EnemieDirection.down;
+      this.size = this.size * 1.15;
+      this.enemyRect = Rect.fromLTWH(this.enemyRect.left,
+          this.gameController.screenSize.height - 50, size * 2, size * 2);
     }
   }
 

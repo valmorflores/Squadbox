@@ -2,6 +2,7 @@ enum EnemieDirection {
   leftup,
   leftdown,
   rightup,
-  righdown, 
+  righdown,
   up,
+  down,
 }
