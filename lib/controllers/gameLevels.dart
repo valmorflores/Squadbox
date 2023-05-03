@@ -34,6 +34,7 @@ import '../components/levels/level_001_044.dart';
 import '../components/levels/level_001_045.dart';
 import '../components/levels/level_001_046.dart';
 import '../components/levels/level_001_047.dart';
+import '../components/levels/level_001_048.dart';
 
 class GameLevel {
   int level = 0;
@@ -245,6 +246,8 @@ class GameLevel {
       Level001046(gameController: this.gameController);
     } else if (this.gameController.level == 47) {
       Level001047(gameController: this.gameController);
+    } else if (this.gameController.level == 48) {
+      Level001048(gameController: this.gameController);
     } else if (this.gameController.level >= 4 &&
         this.gameController.level <= 80) {
       Level001043(gameController: this.gameController);

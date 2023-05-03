@@ -257,7 +257,7 @@ class GameController extends FlameGame {
           // End, gameover
         } else if (this.gameLevel.missionSuccess()) {
           this.gameLevel.finalcount();
-          if (this.enemiesCount() <= 1) {
+          if (this.enemiesCount() <= 3) {
             this.gameLevel.up();
             this.gameLevel.startlevel();
             this.gameLevel.start();
@@ -609,7 +609,11 @@ class GameController extends FlameGame {
 
   int enemiesCount() {
     int i = 0;
-    this.enemies.forEach((f) => ++i);
+    this.enemies.forEach((f) {
+      if (!f.isFree) {
+        ++i;
+      }
+    });
     return i;
   }
 
