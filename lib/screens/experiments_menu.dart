@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../experiments/composability.dart';
 import '../experiments/noise_effect.dart';
+import '../experiments/particles_effects.dart';
 
 class ExperimentsMenu extends StatefulWidget {
   const ExperimentsMenu({Key key}) : super(key: key);
@@ -70,6 +71,24 @@ class _ExperimentsMenuState extends State<ExperimentsMenu> {
                 context,
                 MaterialPageRoute(builder: (context) {
                   return ComposabilityGame(); //MyGame()
+                }),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Particles Effects',
+              style: TextStyle(fontSize: 28),
+            ),
+            subtitle: Text(
+              '04/05/2023 - Rotina de teste de particulas e efeitos',
+              style: TextStyle(fontSize: 11),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return ParticleEffectGame(); //MyGame()
                 }),
               );
             },
