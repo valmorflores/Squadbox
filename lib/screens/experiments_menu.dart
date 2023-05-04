@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../experiments/composability.dart';
 import '../experiments/noise_effect.dart';
 import '../experiments/particles_effects.dart';
+import '../experiments/size_effect.dart';
 
 class ExperimentsMenu extends StatefulWidget {
   const ExperimentsMenu({Key key}) : super(key: key);
@@ -71,6 +72,24 @@ class _ExperimentsMenuState extends State<ExperimentsMenu> {
                 context,
                 MaterialPageRoute(builder: (context) {
                   return ComposabilityGame(); //MyGame()
+                }),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Size Effect',
+              style: TextStyle(fontSize: 28),
+            ),
+            subtitle: Text(
+              '04/05/2023 - Rotina de teste de efeito em resize',
+              style: TextStyle(fontSize: 11),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return SizeEffectGame(); //MyGame()
                 }),
               );
             },
