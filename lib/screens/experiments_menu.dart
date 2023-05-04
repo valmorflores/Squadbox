@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../experiments/composability.dart';
 import '../experiments/noise_effect.dart';
 import '../experiments/particles_effects.dart';
+import '../experiments/raycast_light_effect.dart';
 import '../experiments/size_effect.dart';
 
 class ExperimentsMenu extends StatefulWidget {
@@ -108,6 +109,24 @@ class _ExperimentsMenuState extends State<ExperimentsMenu> {
                 context,
                 MaterialPageRoute(builder: (context) {
                   return ParticleEffectGame(); //MyGame()
+                }),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Raycast Light Effects',
+              style: TextStyle(fontSize: 28),
+            ),
+            subtitle: Text(
+              '04/05/2023 - Efeito de luz e sombra com detecção de raycast',
+              style: TextStyle(fontSize: 11),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return RaycastLightEffectGame(); //MyGame()
                 }),
               );
             },
