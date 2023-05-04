@@ -35,7 +35,7 @@ class Level001builder {
               height: 20,
               blockColor: Colors.green));
         }
-        if (element[i] == 'R') {
+        if (element[i] == 'B') {
           this.gameController.blocks.add(new Blocks(
               gameController: this.gameController,
               left: col.toDouble(),
