@@ -13,45 +13,91 @@ class LevelReset extends StatefulWidget {
 class _LevelResetState extends State<LevelReset> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: new Column(
+    return Scaffold(
+      appBar: AppBar(title: Text('Fase Settings')),
+      body: new Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
+          Text('${gameController.level}'),
           ElevatedButton(
               child: Text("Go to level 30"),
               onPressed: () {
-                print('Sending reset msg to 30');
-                gameController.resetlevels(30);
+                setState(() {
+                  print('Sending reset msg to 30');
+                  gameController.resetlevels(30);
+                });
               }),
           ElevatedButton(
               child: Text("Go to level 35"),
               onPressed: () {
-                print('Sending reset msg to 35');
-                gameController.resetlevels(35);
+                setState(() {
+                  print('Sending reset msg to 35');
+                  gameController.resetlevels(35);
+                });
               }),
           ElevatedButton(
               child: Text("Go to level 40"),
               onPressed: () {
-                print('Sending reset msg to 40');
-                gameController.resetlevels(40);
+                setState(() {
+                  print('Sending reset msg to 40');
+                  gameController.resetlevels(40);
+                });
+              }),
+          ElevatedButton(
+              child: Text("Go to level 50"),
+              onPressed: () {
+                setState(() {
+                  print('Sending reset msg to 50');
+                  gameController.resetlevels(50);
+                });
+              }),
+          ElevatedButton(
+              child: Text("Go to level 60"),
+              onPressed: () {
+                setState(() {
+                  print('Sending reset msg to 60');
+                  gameController.resetlevels(60);
+                });
+              }),
+          ElevatedButton(
+              child: Text("Go to level +10"),
+              onPressed: () {
+                setState(() {
+                  print('Sending reset msg to +10');
+                  gameController.resetlevels(gameController.level + 10);
+                });
+              }),
+          ElevatedButton(
+              child: Text("Go to level -10"),
+              onPressed: () {
+                setState(() {
+                  print('Sending reset msg to -10');
+                  gameController.resetlevels(gameController.level - 10);
+                });
               }),
           ElevatedButton(
               child: Text("Go to level +1"),
               onPressed: () {
-                print('Sending reset msg to +1');
-                gameController.resetlevels(gameController.level + 1);
+                setState(() {
+                  print('Sending reset msg to +1');
+                  gameController.resetlevels(gameController.level + 1);
+                });
               }),
           ElevatedButton(
               child: Text("Go to level -1"),
               onPressed: () {
-                print('Sending reset msg to -1');
-                gameController.resetlevels(gameController.level - 1);
+                setState(() {
+                  print('Sending reset msg to -1');
+                  gameController.resetlevels(gameController.level - 1);
+                });
               }),
           ElevatedButton(
               child: Text("Reset levels"),
               onPressed: () {
-                print('Sending reset msg');
-                gameController.resetlevels(5);
+                setState(() {
+                  print('Sending reset msg');
+                  gameController.resetlevels(5);
+                });
               }),
           new Text(
             "9:50",

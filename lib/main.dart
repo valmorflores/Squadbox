@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 28),
             ),
             subtitle: Text(
-              'version 1.0.01',
+              'version 1.0.02',
               style: TextStyle(fontSize: 11),
             )),
         Text("Level: ${game.level.toString()}"),
