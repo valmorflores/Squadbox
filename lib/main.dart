@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:SquadBox/controllers/gameController.dart';
 
+import 'screens/experiments_menu.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -75,15 +77,18 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         body: Column(
       children: <Widget>[
-        SizedBox(height: 30,),
+        SizedBox(
+          height: 30,
+        ),
         ListTile(
             title: Text(
-          'Squadbox',          
-          style: TextStyle(fontSize: 28),),
-          subtitle: Text(
-          'version 1.0.01',
-          style: TextStyle(fontSize: 11),
-        )),
+              'Squadbox',
+              style: TextStyle(fontSize: 28),
+            ),
+            subtitle: Text(
+              'version 1.0.01',
+              style: TextStyle(fontSize: 11),
+            )),
         Text("Level: ${game.level.toString()}"),
         Text("HighScore: $_highscore"),
         SizedBox(
@@ -117,6 +122,17 @@ class HomeScreen extends StatelessWidget {
                     builder: (context) => LevelReset(
                           gameController: game,
                         )),
+              );
+            }),
+        SizedBox(
+          height: 5,
+        ),
+        ElevatedButton(
+            child: Text("Experimentos"),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ExperimentsMenu()),
               );
             }),
         SizedBox(
