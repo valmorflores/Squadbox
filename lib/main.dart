@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:SquadBox/screens/level_menu.dart';
 import 'package:SquadBox/screens/level_reset_position.dart';
 
@@ -146,6 +148,7 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => LevelMenu()),
               );
             }),
+        //levelListSelector()
       ],
     ));
   }
@@ -156,6 +159,63 @@ class HomeScreen extends StatelessWidget {
     //myInterstitial.dispose();
   }
 }
+
+Widget levelListSelector() {
+  return FutureBuilder(
+    future: levelList(),
+    builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.waiting:
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+          break;
+        case ConnectionState.done:
+          if (snapshot.hasError)
+            return Text(snapshot.error.toString());
+          else
+            return ListView(
+              children: snapshot.data
+                  .map((e) => ListTile(title: Text(e.name)))
+                  .toList(),
+            );
+          break;
+        default:
+          return Text('Unhandle State');
+      }
+    },
+  );
+}
+
+Future<List<LevelModel>> levelList() async {
+  List<LevelModel> levels = [];
+  levels.add(LevelModel(
+      id: 0,
+      name: 'Terreo, ala A',
+      description:
+          'Área básica 1 - Prenda os poucos fugitivos que estão neste setor'));
+  levels.add(LevelModel(
+      id: 0,
+      name: 'Terreo, setor A1',
+      description:
+          'Área básica A1 - Eles estão se aglomerando neste setor. Reduza seus espaços.'));
+  levels.add(LevelModel(
+      id: 0,
+      name: 'Terreo, setor B',
+      description:
+          'Área básica B - Muitos estão tentando escapar. Reuna a equipe e neutralize os fugitivos.'));
+  return levels;
+}
+
+class LevelModel {
+  int id;
+  String name;
+  String description;
+  int score;
+
+  LevelModel({this.id, this.name, this.description, this.score});
+}
+
 /*
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>['flutterio', 'games', 'ads', 'beautiful apps', 'uber'],
