@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:SquadBox/main-old.dart';
 import 'package:SquadBox/screens/level_menu.dart';
 import 'package:SquadBox/screens/level_reset_position.dart';
 
@@ -88,7 +89,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 28),
             ),
             subtitle: Text(
-              'version 1.0.02',
+              'version 1.0.03',
               style: TextStyle(fontSize: 11),
             )),
         Text("Level: ${game.level.toString()}"),
@@ -134,7 +135,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ExperimentsMenu()),
+                MaterialPageRoute(builder: (context) => ExperimentsMenu(gameController: game,)),
               );
             }),
         SizedBox(

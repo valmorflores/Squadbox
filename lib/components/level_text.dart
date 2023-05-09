@@ -23,7 +23,7 @@ void render(Canvas c){
 void update(double t){
    if ((painter.text??'')!=this.gameController.level.toString()){
      painter.text = TextSpan( text: this.gameController.level.toString(),
-     style: TextStyle( color: Color.fromRGBO( 255, 255, 255, 0.3 ),
+     style: TextStyle( color: Colors.white.withAlpha(100),
      fontSize: 36.0,
      ),
     

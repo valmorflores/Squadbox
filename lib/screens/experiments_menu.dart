@@ -1,14 +1,19 @@
+import 'package:SquadBox/controllers/gameController.dart';
 import 'package:SquadBox/experiments/bouncing_ball.dart';
+import 'package:SquadBox/main-old.dart';
 import 'package:flutter/material.dart';
 
 import '../experiments/composability.dart';
 import '../experiments/noise_effect.dart';
 import '../experiments/particles_effects.dart';
+import '../experiments/personagens.dart';
 import '../experiments/raycast_light_effect.dart';
 import '../experiments/size_effect.dart';
 
 class ExperimentsMenu extends StatefulWidget {
-  const ExperimentsMenu({Key key}) : super(key: key);
+  GameController gameController;
+  ExperimentsMenu({gameController, Key key}) : super(key: key);
+
 
   @override
   State<ExperimentsMenu> createState() => _ExperimentsMenuState();
@@ -128,6 +133,24 @@ class _ExperimentsMenuState extends State<ExperimentsMenu> {
                   context,
                   MaterialPageRoute(builder: (context) {
                     return RaycastLightEffectGame(); //MyGame()
+                  }),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Personagens',
+                style: TextStyle(fontSize: 28),
+              ),
+              subtitle: Text(
+                '09/05/2023 - Teste de personagens',
+                style: TextStyle(fontSize: 11),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return PersonagensGame(gameController: gameController,); //MyGame()
                   }),
                 );
               },

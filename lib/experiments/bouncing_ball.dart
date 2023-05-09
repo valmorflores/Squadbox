@@ -44,7 +44,7 @@ class Ball extends CircleComponent
   final paint3 = Paint()..color = const Color(0xffb372dc);
 
   Ball() {
-    paint = Paint()..color = Colors.white;
+    paint = Paint()..color = Colors.yellow;
     radius = 10;
   }
 

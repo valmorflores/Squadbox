@@ -394,6 +394,17 @@ class GameController extends FlameGame {
     print('state to ' + this.state.toString());
   }
 
+
+  restartRun(){
+    print('lives + 1');
+    this.lifes = this.lifes + 1;
+    this.state = StateGame.menu;
+    this.gameLevel.resetall();
+    this.initialize();
+    this.state = StateGame.playing;
+    print('state to ' + this.state.toString());
+  }
+
   void resize(Size size) {
     this.screenSize = size;
   }
