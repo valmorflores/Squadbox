@@ -1,5 +1,6 @@
 import 'package:SquadBox/controllers/gameController.dart';
 import 'package:SquadBox/experiments/bouncing_ball.dart';
+import 'package:SquadBox/experiments/movement.dart';
 import 'package:SquadBox/main-old.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,6 @@ import '../experiments/size_effect.dart';
 class ExperimentsMenu extends StatefulWidget {
   GameController gameController;
   ExperimentsMenu({gameController, Key key}) : super(key: key);
-
 
   @override
   State<ExperimentsMenu> createState() => _ExperimentsMenuState();
@@ -150,7 +150,27 @@ class _ExperimentsMenuState extends State<ExperimentsMenu> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
-                    return PersonagensGame(gameController: gameController,); //MyGame()
+                    return PersonagensGame(
+                      gameController: gameController,
+                    ); //MyGame()
+                  }),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Movement',
+                style: TextStyle(fontSize: 28),
+              ),
+              subtitle: Text(
+                '10/05/2023 - Testes de movimentos e colisões',
+                style: TextStyle(fontSize: 11),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return MovementGame(); //MyGame()
                   }),
                 );
               },
