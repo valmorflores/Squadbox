@@ -7,7 +7,6 @@ import 'package:flame/collisions.dart';
 import 'dart:math' as math;
 
 class MovementGame extends StatefulWidget {
-  
   MovementGame({Key key}) : super(key: key);
 
   @override
@@ -17,14 +16,16 @@ class MovementGame extends StatefulWidget {
 class MovementGameState extends State<MovementGame> {
   @override
   Widget build(BuildContext context) {
+    BoxGameMain _game = BoxGameMain();
     return Scaffold(
         appBar: AppBar(
           title: Text('Movement'),
         ),
-        body: GameWidget(game: BoxGameMain()));
+        body: GestureDetector(
+          onTapDown: (details) => _game.onTapDown(details),
+          child: GameWidget(game: _game)));
   }
 }
-
 
 class BoxGameMain extends FlameGame with HasCollisionDetection {
   static const description = '''
@@ -36,32 +37,33 @@ class BoxGameMain extends FlameGame with HasCollisionDetection {
     addAll([
       ScreenHitbox(),
       Ball(),
-      FixedBox(10.0,10.0),
-      FixedBox(30.0,30.0),
-      FixedBox(40.0,40.0),
-      FixedBox(100.0,100.0),
-
-      FixedBox(130.0,30.0),
-      FixedBox(170.0,80.0),
-      FixedBox(300.0,300.0),
-
-
-
+      FixedBox(10.0, 10.0),
+      FixedBox(30.0, 30.0),
+      FixedBox(40.0, 40.0),
+      FixedBox(100.0, 100.0),
+      FixedBox(130.0, 30.0),
+      FixedBox(170.0, 80.0),
+      FixedBox(300.0, 300.0),
     ]);
   }
+
+  @override
+  void onTapDown(TapDownDetails d) {
+    add(FixedBox(d.globalPosition.dx, d.globalPosition.dy));
+  }
+
 }
 
 /* FixedBox */
 
 class FixedBox extends CircleComponent
     with HasGameRef<FlameGame>, CollisionCallbacks {
-
   Vector2 velocity;
   final paint3 = Paint()..color = const Color(0xffb372dc);
   double positionX = 0;
   double positionY = 0;
 
-  FixedBox(x,y) {
+  FixedBox(x, y) {
     paint = Paint()..color = Colors.red;
     radius = 10;
     positionX = x;
@@ -76,30 +78,22 @@ class FixedBox extends CircleComponent
     super.onLoad();
     //_resetBall;
     final hitBox = CircleHitbox(
-      
       radius: radius,
     );
 
     addAll([
       hitBox,
     ]);
-
-
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-    position = Vector2(positionX,positionY);
+    position = Vector2(positionX, positionY);
   }
 
-  @override 
-  void onTapDown(double dt) {
-    add(FixedBox(350,300));
-  }
-
+  
 }
-
 
 /* Ball */
 class Ball extends CircleComponent
@@ -126,8 +120,6 @@ class Ball extends CircleComponent
     addAll([
       hitBox,
     ]);
-
-
   }
 
   @override
@@ -187,12 +179,12 @@ class Ball extends CircleComponent
       }
     }
 
-
     // OUTRA COLISAO COM OUTRA BOLA
     if (other is FixedBox) {
       final collisionPoint = intersectionPoints.first;
       debugPrint('Colidiu com outra bola fixa');
-      debugPrint('Target: [${other.position.x},${other.position.y}] Ball: [${collisionPoint.x},${collisionPoint.y}]' );
+      debugPrint(
+          'Target: [${other.position.x},${other.position.y}] Ball: [${collisionPoint.x},${collisionPoint.y}]');
       // Left Side Collision
       if (collisionPoint.x >= other.position.x) {
         velocity.x = -velocity.x;
@@ -214,8 +206,6 @@ class Ball extends CircleComponent
         velocity.y = -velocity.y;
       }
     }
-
-
   }
 }
 
