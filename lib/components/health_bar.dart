@@ -1,16 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class HealthBar {
 
   final GameController gameController;
-  Rect healthBarRect;
-  Rect progressBarRect;
-  double _barWidth;
+  late Rect healthBarRect;
+  late Rect progressBarRect;
+  late double _barWidth;
   double _postop = 0; // gameController.screenSize.height-5
 
-  HealthBar({this.gameController}){
+  HealthBar({required this.gameController}){
     double barWidth = gameController.screenSize.width * 1;
     this._barWidth = barWidth;
     healthBarRect = Rect.fromLTWH(

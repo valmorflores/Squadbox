@@ -26,24 +26,25 @@ class _LevelMenuState extends State<LevelMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener(
+      body: NotificationListener<ScrollNotification>(
           onNotification: (v) {
             // print( 'Drag sscroll ' + v.toString()  );
             // print(v.runtimeType);
             if (v is ScrollUpdateNotification) {
               setState(() {
                 //print( v.dragDetails.globalPosition.direction..distance.toString() );
-                topOne = topOne - v.scrollDelta / 3;
-                topTwo = topTwo - v.scrollDelta / 1;
-                rateEight -= v.scrollDelta / 1;
-                rateSeven -= v.scrollDelta / 1.5;
-                rateSix -= v.scrollDelta / 2;
-                rateFive -= v.scrollDelta / 2.5;
-                rateFour -= v.scrollDelta / 3;
-                rateThree -= v.scrollDelta / 3.5;
-                rateTwo -= v.scrollDelta / 4;
-                rateOne -= v.scrollDelta / 4.5;
-                rateZero -= v.scrollDelta / 5;
+                final delta = v.scrollDelta ?? 0;
+                topOne = topOne - delta / 3;
+                topTwo = topTwo - delta / 1;
+                rateEight -= delta / 1;
+                rateSeven -= delta / 1.5;
+                rateSix -= delta / 2;
+                rateFive -= delta / 2.5;
+                rateFour -= delta / 3;
+                rateThree -= delta / 3.5;
+                rateTwo -= delta / 4;
+                rateOne -= delta / 4.5;
+                rateZero -= delta / 5;
                 /*
               rateZeroLeft -= v.scrollDelta / 3;
               rateOneLeft -= v.scrollDelta / 5;
@@ -56,6 +57,7 @@ class _LevelMenuState extends State<LevelMenu> {
                 rateThreeLeft -= 0;
               });
             }
+            return true;
           },
           child: Stack(
             children: <Widget>[
@@ -197,17 +199,17 @@ class _LevelMenuState extends State<LevelMenu> {
 
 class ParallaxWidget extends StatelessWidget {
   const ParallaxWidget({
-    Key key,
-    @required this.left,
-    @required this.top,
+    Key? key,
+    required this.left,
+    required this.top,
     this.width,
-    @required this.asset,
+    required this.asset,
   }) : super(key: key);
 
   final double left;
   final double top;
   final String asset;
-  final double width;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +218,7 @@ class ParallaxWidget extends StatelessWidget {
       top: top,
       child: Container(
         height: 550,
-        width: width == null ? 900 : width,
+        width: width ?? 900,
         child: Image.asset("assets/images/$asset.png", fit: BoxFit.cover),
       ),
     );

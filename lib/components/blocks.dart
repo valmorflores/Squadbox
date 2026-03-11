@@ -1,54 +1,40 @@
 import 'package:flutter/rendering.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class Blocks {
   final GameController gameController;
-  double left;
-  double top;
-  double width;
-  double height;
-  Color blockColor;
-  Rect blockRect;
-  bool isDead;
+  late double left;
+  late double top;
+  late double width;
+  late double height;
+  late Color blockColor;
+  late Rect blockRect;
+  bool isDead = false;
   bool isSpoiled;
-  bool isEnergy;
+  bool isEnergy = false;
   bool isSobreposto;
-  bool isPortal;
+  bool isPortal = false;
   Rect get qualBlock {
     return this.blockRect;
   }
 
   Blocks(
-      {this.gameController,
-      this.left,
-      this.top,
-      this.width,
-      this.height,
-      this.blockColor,
+      {required this.gameController,
+      required this.left,
+      required this.top,
+      required this.width,
+      required this.height,
+      required this.blockColor,
       this.isSpoiled = true,
       this.isPortal = false,
-      isSobreposto = false}) {
+      this.isSobreposto = false}) {
     //print( 'objeto blocks');
 
     Offset maximus;
-    double sizewidth, sizeheight;
-    this.isDead = false;
-    this.isEnergy = false;
-    if (width == null) {
-      sizewidth = 50;
-    }
-    if (top == null) {
-      top = 0;
-    }
-    if (left == null) {
-      left = 0;
-    }
-    sizeheight = height;
+    double sizewidth = width;
+    double sizeheight = height;
     //print( width );
-    if (isSobreposto) {
-      sizewidth = width;
-      sizeheight = height;
-    } else {
+    if (!isSobreposto) {
       maximus = this
           .gameController
           .arena

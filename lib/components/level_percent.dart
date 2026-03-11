@@ -1,16 +1,16 @@
 import 'dart:ui';
 
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_enemy.dart';
 
 class LevelPercent {
 
-  GameController gameController;
-  Rect rectPercentual;
+  final GameController gameController;
+  late Rect rectPercentual;
   int perc = 0;
   double nCiclos = 0;
 
-  LevelPercent({this.gameController}){
+  LevelPercent({required this.gameController}){
      this.nCiclos = 0;
      rectPercentual = Rect.fromLTWH( 
          0, 

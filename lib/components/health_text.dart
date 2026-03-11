@@ -1,21 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class HealthText {
   final GameController gameController;
-  TextPainter painter;
-  Offset position;
+  late TextPainter painter;
+  late Offset position;
 
-  HealthText({this.gameController}) {
+  HealthText({required this.gameController}) {
     painter = TextPainter(
         textAlign: TextAlign.right, textDirection: TextDirection.ltr);
     this.position = Offset.zero;
   }
 
   void render(Canvas c) {
-    painter != null ? painter.paint(c, position) : null;
+    painter.paint(c, position);
   }
 
   void update(double t) {

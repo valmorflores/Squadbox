@@ -1,32 +1,32 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:SquadBox/components/enemy.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/controllers/gameDesafios.dart';
-import 'package:SquadBox/models/enum_desafios.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
-import 'package:SquadBox/models/enum_state.dart';
+import 'package:squadbox/components/enemy.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameDesafios.dart';
+import 'package:squadbox/models/enum_desafios.dart';
+import 'package:squadbox/models/enum_enemy.dart';
+import 'package:squadbox/models/enum_state.dart';
 
 class DesafioStatus {
-
-  GameController gameController;
-  Rect statusRect;
-  TextPainter painter;
-  TextPainter painterChefao;
-  TextPainter painterGangster;
-  TextPainter painterGerente;
-  Offset positionChefao;
-  Offset positionGangster;
-  Offset positionGerente; 
+  final GameController gameController;
+  late Rect statusRect;
+  late TextPainter painterChefao;
+  late TextPainter painterGangster;
+  late TextPainter painterGerente;
+  late Offset positionChefao;
+  late Offset positionGangster;
+  late Offset positionGerente;
   int perc = 0;
   double nCiclos = 0;
   
-  List <DesafiosItem>desafios;
-  Enemy enemyChefao, enemyGangster, enemyGerente;
+  List<DesafiosItem>? desafios;
+  late Enemy enemyChefao;
+  late Enemy enemyGangster;
+  late Enemy enemyGerente;
 
-  DesafioStatus({this.gameController}){
-     statusRect = Rect.fromLTWH( 10, 40, 100, 110 );
+  DesafioStatus({required this.gameController}) {
+     statusRect = const Rect.fromLTWH(10, 40, 100, 110);
      // Gangster
      enemyGangster = Enemy( gameController: this.gameController,
                enemyType: EnemyType.gangster, x: 15, y: 50 );
@@ -50,10 +50,8 @@ class DesafioStatus {
 
   void update( double t ){
     if ( this.gameController.state == StateGame.playing ) {
-      if ( enemyGangster == null ){
-          
-      }
-      this.gameController.desafios.items.forEach((e){
+      // hoje não usamos a lista diretamente aqui, mas garantimos que existe
+      desafios = gameController.desafios.items;
         /*
         if ( e.desafio == DesafiosGame.capturar ){
             painter.color = Colors.redAccent;

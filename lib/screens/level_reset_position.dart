@@ -1,10 +1,10 @@
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/main-old.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/main-old.dart';
 import 'package:flutter/material.dart';
 
 class LevelReset extends StatefulWidget {
-  GameController gameController;
-  LevelReset({this.gameController});
+  final GameController gameController;
+  const LevelReset({Key? key, required this.gameController}) : super(key: key);
 
   @override
   _LevelResetState createState() => _LevelResetState();
@@ -18,13 +18,13 @@ class _LevelResetState extends State<LevelReset> {
       body: new Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          Text('${gameController.level}'),
+          Text('${widget.gameController.level}'),
           ElevatedButton(
               child: Text("Go to level 30"),
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to 30');
-                  gameController.resetlevels(30);
+                  widget.gameController.resetlevels(30);
                 });
               }),
           ElevatedButton(
@@ -32,7 +32,7 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to 35');
-                  gameController.resetlevels(35);
+                  widget.gameController.resetlevels(35);
                 });
               }),
           ElevatedButton(
@@ -40,7 +40,7 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to 40');
-                  gameController.resetlevels(40);
+                  widget.gameController.resetlevels(40);
                 });
               }),
           ElevatedButton(
@@ -48,7 +48,7 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to 50');
-                  gameController.resetlevels(50);
+                  widget.gameController.resetlevels(50);
                 });
               }),
           ElevatedButton(
@@ -56,7 +56,7 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to 60');
-                  gameController.resetlevels(60);
+                  widget.gameController.resetlevels(60);
                 });
               }),
           ElevatedButton(
@@ -64,7 +64,8 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to +10');
-                  gameController.resetlevels(gameController.level + 10);
+                  widget.gameController
+                      .resetlevels(widget.gameController.level + 10);
                 });
               }),
           ElevatedButton(
@@ -72,7 +73,8 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to -10');
-                  gameController.resetlevels(gameController.level - 10);
+                  widget.gameController
+                      .resetlevels(widget.gameController.level - 10);
                 });
               }),
           ElevatedButton(
@@ -80,7 +82,8 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to +1');
-                  gameController.resetlevels(gameController.level + 1);
+                  widget.gameController
+                      .resetlevels(widget.gameController.level + 1);
                 });
               }),
           ElevatedButton(
@@ -88,7 +91,8 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg to -1');
-                  gameController.resetlevels(gameController.level - 1);
+                  widget.gameController
+                      .resetlevels(widget.gameController.level - 1);
                 });
               }),
           ElevatedButton(
@@ -96,7 +100,7 @@ class _LevelResetState extends State<LevelReset> {
               onPressed: () {
                 setState(() {
                   print('Sending reset msg');
-                  gameController.resetlevels(5);
+                  widget.gameController.resetlevels(5);
                 });
               }),
           new Text(

@@ -1,15 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class LevelText {
-  
- final GameController gameController;
- TextPainter painter;
- Offset position;
+  final GameController gameController;
+  late TextPainter painter;
+  late Offset position;
 
-LevelText( {this.gameController} ){
+LevelText({required this.gameController}) {
   painter = TextPainter( textAlign:  TextAlign.right,
   textDirection: TextDirection.ltr );
   this.position = Offset.zero;
@@ -17,7 +16,7 @@ LevelText( {this.gameController} ){
 }
 
 void render(Canvas c){
-  painter!=null?painter.paint(c, position):null;
+  painter.paint(c, position);
 }
 
 void update(double t){

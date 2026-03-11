@@ -1,7 +1,7 @@
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/experiments/bouncing_ball.dart';
-import 'package:SquadBox/experiments/movement.dart';
-import 'package:SquadBox/main-old.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/experiments/bouncing_ball.dart';
+import 'package:squadbox/experiments/movement.dart';
+import 'package:squadbox/main-old.dart';
 import 'package:flutter/material.dart';
 
 import '../experiments/composability.dart';
@@ -12,8 +12,9 @@ import '../experiments/raycast_light_effect.dart';
 import '../experiments/size_effect.dart';
 
 class ExperimentsMenu extends StatefulWidget {
-  GameController gameController;
-  ExperimentsMenu({gameController, Key key}) : super(key: key);
+  final GameController gameController;
+  const ExperimentsMenu({Key? key, required this.gameController})
+      : super(key: key);
 
   @override
   State<ExperimentsMenu> createState() => _ExperimentsMenuState();
@@ -151,7 +152,7 @@ class _ExperimentsMenuState extends State<ExperimentsMenu> {
                   context,
                   MaterialPageRoute(builder: (context) {
                     return PersonagensGame(
-                      gameController: gameController,
+                      gameController: widget.gameController,
                     ); //MyGame()
                   }),
                 );

@@ -1,15 +1,15 @@
-import 'package:SquadBox/components/enemy.dart';
-import 'package:SquadBox/components/tools.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/controllers/gameDesafios.dart';
-import 'package:SquadBox/models/enum_desafios.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
-import 'package:SquadBox/models/enum_tools.dart';
+import 'package:squadbox/components/enemy.dart';
+import 'package:squadbox/components/tools.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameDesafios.dart';
+import 'package:squadbox/models/enum_desafios.dart';
+import 'package:squadbox/models/enum_enemy.dart';
+import 'package:squadbox/models/enum_tools.dart';
 
 class Level001003 {
-  GameController gameController;
+  final GameController gameController;
 
-  Level001003({this.gameController}) {
+  Level001003({required this.gameController}) {
     this.gameController.inimigos = 20;
     this.gameController.gameLevel.percentual = 40;
      

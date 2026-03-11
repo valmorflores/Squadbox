@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:SquadBox/main-old.dart';
-import 'package:SquadBox/screens/level_menu.dart';
-import 'package:SquadBox/screens/level_reset_position.dart';
+import 'package:squadbox/main-old.dart';
+import 'package:squadbox/screens/level_menu.dart';
+import 'package:squadbox/screens/level_reset_position.dart';
 
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 import 'screens/experiments_menu.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'SquadBox',
+      title: 'squadbox',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -31,52 +31,41 @@ class MyApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int _highscore = 0;
-    MyGame game;
-    Widget oGame;
+    final game = MyGame(contexto: context);
+    game.startgetprefs();
+    game.getStatus();
+    final int _highscore = game.getHightScore();
+    final Widget oGame = GestureDetector(
+      child: GameWidget(game: game),
+      onTapDown: (details) {
+        debugPrint('Tap on game');
+        game.onTapDown(details);
+      },
+      onHorizontalDragStart: (details) {
+        game.onHorizontalDragStart(details);
+      },
+      onHorizontalDragEnd: (details) {
+        game.onHorizontalDragEnd(details);
+      },
+      onHorizontalDragUpdate: (details) {
+        game.onHorizontalDragUpdate(details);
+      },
+      onVerticalDragStart: (details) {
+        game.onVerticalDragStart(details);
+      },
+      onVerticalDragEnd: (details) {
+        game.onVerticalDragEnd(details);
+      },
+      onVerticalDragUpdate: (details) {
+        game.onVerticalDragUpdate(details);
+      },
+    );
     /*FirebaseAdMob.instance.initialize(appId: ADMOB_APP_ID)
       ..then((response) {
         myBanner
           ..load()
           ..show();
       });*/
-    if (oGame == null) {
-      game = MyGame(contexto: context);
-      game.startgetprefs();
-      int i = 0;
-      while (game.storage == null && i < 1) {
-        print(i.toString() + ': Waiting get storage functions...');
-        ++i;
-      }
-      game.getStatus();
-      _highscore = game.getHightScore();
-      oGame = GestureDetector(
-        child: GameWidget(game: game),
-        onTapDown: (details) {
-          debugPrint('Tap on game');
-          game.onTapDown(details);
-        },
-        onHorizontalDragStart: (details) {
-          game.onHorizontalDragStart(details);
-        },
-        onHorizontalDragEnd: (details) {
-          game.onHorizontalDragEnd(details);
-        },
-        onHorizontalDragUpdate: (details) {
-          game.onHorizontalDragUpdate(details);
-        },
-        onVerticalDragStart: (details) {
-          game.onVerticalDragStart(details);
-        },
-        onVerticalDragEnd: (details) {
-          game.onVerticalDragEnd(details);
-        },
-        onVerticalDragUpdate: (details) {
-          game.onVerticalDragUpdate(details);
-        },
-      );
-    }
-
     return Scaffold(
         body: Column(
       children: <Widget>[
@@ -85,7 +74,7 @@ class HomeScreen extends StatelessWidget {
         ),
         ListTile(
             title: Text(
-              'Squadbox',
+              'squadbox',
               style: TextStyle(fontSize: 28),
             ),
             subtitle: Text(
@@ -172,14 +161,18 @@ Widget levelListSelector() {
           );
           break;
         case ConnectionState.done:
-          if (snapshot.hasError)
+          if (snapshot.hasError) {
             return Text(snapshot.error.toString());
-          else
+          } else {
+            final data = snapshot.data as List<LevelModel>?;
+            if (data == null) {
+              return const SizedBox.shrink();
+            }
             return ListView(
-              children: snapshot.data
-                  .map((e) => ListTile(title: Text(e.name)))
-                  .toList(),
+              children:
+                  data.map((e) => ListTile(title: Text(e.name))).toList(),
             );
+          }
           break;
         default:
           return Text('Unhandle State');
@@ -209,12 +202,17 @@ Future<List<LevelModel>> levelList() async {
 }
 
 class LevelModel {
-  int id;
-  String name;
-  String description;
-  int score;
+  final int id;
+  final String name;
+  final String description;
+  final int score;
 
-  LevelModel({this.id, this.name, this.description, this.score});
+  LevelModel({
+    required this.id,
+    required this.name,
+    required this.description,
+    this.score = 0,
+  });
 }
 
 /*
@@ -253,13 +251,12 @@ MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
 );*/
 
 class MyGame extends GameController {
-  BuildContext contexto;
-  SharedPreferences _storage;
+  final BuildContext contexto;
 
-  MyGame({this.contexto}) {
+  MyGame({required this.contexto}) {
     context = contexto;
     /////// -- Util flameUtil = Util();
-    storage = _storage;
+    // `storage` será inicializado em `startgetprefs`.
 
     /* -- flameUtil.addGestureRecognizer(VerticalDragGestureRecognizer()
       ..onStart = this.onVerticalDragStart
@@ -326,22 +323,17 @@ class MyGame extends GameController {
   }
 
   getStatus() {
-    if (this.storage != null) {
-      if (this.storage.getInt('level') ?? 0 > 1) {
-        this.level = this.storage.getInt('level');
-      }
+    final storedLevel = storage.getInt('level') ?? 0;
+    if (storedLevel > 1) {
+      level = storedLevel;
     }
   }
 
   int getHightScore() {
-    if (this.storage != null) {
-      if (this.storage.getInt('highscore') ?? 0 > 1) {
-        return this.storage.getInt('highscore');
-      } else {
-        return 0;
-      }
-    } else {
-      return 0;
+    final highScore = storage.getInt('highscore') ?? 0;
+    if (highScore > 1) {
+      return highScore;
     }
+    return 0;
   }
 }

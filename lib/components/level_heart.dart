@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/flame.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class LevelHeart {
   GameController gameController;

@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_game.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_game.dart';
  
-import 'package:SquadBox/models/theme_model.dart';
+import 'package:squadbox/models/theme_model.dart';
 import 'home_prototipo.dart';
 
 // Se quiser rodar protitipo (rode:)

@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/particles.dart';

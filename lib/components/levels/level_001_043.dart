@@ -1,19 +1,19 @@
-import 'package:SquadBox/components/blocks.dart';
-import 'package:SquadBox/components/enemy.dart';
-import 'package:SquadBox/components/tools.dart';
-import 'package:SquadBox/components/tools/block_energy.dart';
-import 'package:SquadBox/components/tools/block_portal.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/controllers/gameDesafios.dart';
-import 'package:SquadBox/models/enum_desafios.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
-import 'package:SquadBox/models/enum_tools.dart';
+import 'package:squadbox/components/blocks.dart';
+import 'package:squadbox/components/enemy.dart';
+import 'package:squadbox/components/tools.dart';
+import 'package:squadbox/components/tools/block_energy.dart';
+import 'package:squadbox/components/tools/block_portal.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameDesafios.dart';
+import 'package:squadbox/models/enum_desafios.dart';
+import 'package:squadbox/models/enum_enemy.dart';
+import 'package:squadbox/models/enum_tools.dart';
 import 'package:flutter/material.dart';
 
 class Level001043 {
-  GameController gameController;
+  final GameController gameController;
 
-  Level001043({this.gameController}) {
+  Level001043({required this.gameController}) {
     List<String> map = [
       '____________________________________',
       '________G___________________________',

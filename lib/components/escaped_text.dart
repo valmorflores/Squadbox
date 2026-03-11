@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:SquadBox/components/enemy.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
+import 'package:squadbox/components/enemy.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_enemy.dart';
 import 'package:flutter/painting.dart';
 
 class EscapedText {

@@ -1,2 +1,2 @@
-# Squadbox
+# squadbox
 Experimental game in flutter

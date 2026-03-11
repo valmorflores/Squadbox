@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:SquadBox/models/enum_themetype.dart';
-import 'package:SquadBox/theme/dark/style.dart';
-import 'package:SquadBox/theme/default/style.dart';
-import 'package:SquadBox/theme/light/style.dart';
+import 'package:squadbox/models/enum_themetype.dart';
+import 'package:squadbox/theme/dark/style.dart';
+import 'package:squadbox/theme/default/style.dart';
+import 'package:squadbox/theme/light/style.dart';
 
 class ThemeModel extends ChangeNotifier {
   ThemeData currentTheme = defaultTheme;

@@ -1,32 +1,32 @@
 import 'dart:ui';
 
-import 'package:SquadBox/components/enemy.dart';
-import 'package:SquadBox/components/levels/level_001_002.dart';
-import 'package:SquadBox/components/levels/level_001_003.dart';
-import 'package:SquadBox/components/levels/level_001_004.dart';
-import 'package:SquadBox/components/levels/level_001_005.dart';
-import 'package:SquadBox/components/levels/level_001_009.dart';
-import 'package:SquadBox/components/levels/level_001_010.dart';
-import 'package:SquadBox/components/levels/level_001_015.dart';
-import 'package:SquadBox/components/levels/level_001_020.dart';
-import 'package:SquadBox/components/levels/level_001_025.dart';
-import 'package:SquadBox/components/levels/level_001_030.dart';
-import 'package:SquadBox/components/levels/level_001_035.dart';
-import 'package:SquadBox/components/levels/level_001_038.dart';
-import 'package:SquadBox/components/levels/level_001_039.dart';
-import 'package:SquadBox/components/levels/level_001_040.dart';
-import 'package:SquadBox/components/levels/level_001_042.dart';
-import 'package:SquadBox/components/tools.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/controllers/gameDesafios.dart';
-import 'package:SquadBox/models/enum_desafios.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
-import 'package:SquadBox/models/enum_fails.dart';
-import 'package:SquadBox/models/enum_state.dart';
-import 'package:SquadBox/models/enum_tools.dart';
+import 'package:squadbox/components/enemy.dart';
+import 'package:squadbox/components/levels/level_001_002.dart';
+import 'package:squadbox/components/levels/level_001_003.dart';
+import 'package:squadbox/components/levels/level_001_004.dart';
+import 'package:squadbox/components/levels/level_001_005.dart';
+import 'package:squadbox/components/levels/level_001_009.dart';
+import 'package:squadbox/components/levels/level_001_010.dart';
+import 'package:squadbox/components/levels/level_001_015.dart';
+import 'package:squadbox/components/levels/level_001_020.dart';
+import 'package:squadbox/components/levels/level_001_025.dart';
+import 'package:squadbox/components/levels/level_001_030.dart';
+import 'package:squadbox/components/levels/level_001_035.dart';
+import 'package:squadbox/components/levels/level_001_038.dart';
+import 'package:squadbox/components/levels/level_001_039.dart';
+import 'package:squadbox/components/levels/level_001_040.dart';
+import 'package:squadbox/components/levels/level_001_042.dart';
+import 'package:squadbox/components/tools.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameDesafios.dart';
+import 'package:squadbox/models/enum_desafios.dart';
+import 'package:squadbox/models/enum_enemy.dart';
+import 'package:squadbox/models/enum_fails.dart';
+import 'package:squadbox/models/enum_state.dart';
+import 'package:squadbox/models/enum_tools.dart';
 
-import 'package:SquadBox/components/levels/level_001_001.dart';
-import 'package:SquadBox/components/levels/level_001_008.dart';
+import 'package:squadbox/components/levels/level_001_001.dart';
+import 'package:squadbox/components/levels/level_001_008.dart';
 
 import '../components/levels/level_001_041.dart';
 import '../components/levels/level_001_043.dart';
@@ -41,20 +41,17 @@ class GameLevel {
   int enemies = 1;
   int highscore = 0;
   int difficulty = 30;
-  double percentual = 50;
+  double percentual;
 
-  GameController gameController;
-  GameLevel({this.gameController, this.percentual}) {}
+  final GameController gameController;
+  GameLevel({required this.gameController, this.percentual = 50});
 
   void up() {
     this.level++;
-    this.gameController.level = this.gameController.level + 1;
-    int savedlevel = this.gameController.storage.getInt('level');
-    if (savedlevel == null) {
-      savedlevel = 0;
-    }
-    if (this.gameController.level > savedlevel) {
-      this.gameController.storage.setInt('level', this.gameController.level);
+    gameController.level = gameController.level + 1;
+    final savedlevel = gameController.storage.getInt('level') ?? 0;
+    if (gameController.level > savedlevel) {
+      gameController.storage.setInt('level', gameController.level);
     }
   }
 
@@ -86,17 +83,17 @@ class GameLevel {
   }
 
   double start() {
-    this.gameController.blocks.forEach((f) => f.isDead = true);
-    this.gameController.enemies.forEach((f) => f.isDead = true);
+    gameController.blocks.forEach((f) => f.isDead = true);
+    gameController.enemies.forEach((f) => f.isDead = true);
     this.enemies += 1;
     print('Start' + this.enemies.toString());
-    this.gameController.initialize();
+    gameController.initialize();
     this.startlevel();
   }
 
   void resetall() {
-    this.gameController.blocks.forEach((f) => f.isDead = true);
-    this.gameController.enemies.forEach((f) => f.isDead = true);
+    gameController.blocks.forEach((f) => f.isDead = true);
+    gameController.enemies.forEach((f) => f.isDead = true);
     this.enemies += 0;
     print('Reset' + this.enemies.toString());
   }
@@ -123,10 +120,10 @@ class GameLevel {
   FailsGame fail() {
     FailsGame fail = FailsGame.none;
     int captura;
-    this.gameController.desafios.items.forEach((f) {
+    gameController.desafios.items.forEach((f) {
       if (f.desafio == DesafiosGame.capturar) {
         captura = 0;
-        this.gameController.enemies.forEach((enemy) {
+        gameController.enemies.forEach((enemy) {
           if (enemy.enemyType == f.enemytype) {
             ++captura;
           }
@@ -145,7 +142,7 @@ class GameLevel {
       }
     });
     //fail = FailsGame.none;
-    if (this.gameController.player.currentHealt <= 0) {
+    if (gameController.player.currentHealt <= 0) {
       fail = FailsGame.health;
     }
     return fail;
@@ -153,11 +150,11 @@ class GameLevel {
 
   bool missionSuccess() {
     bool lSuccess = true;
-    if (this.gameController.state == StateGame.playing) {
-      this.gameController.desafios.items.forEach((f) {
+    if (gameController.state == StateGame.playing) {
+      gameController.desafios.items.forEach((f) {
         if (f.desafio == DesafiosGame.capturar) {
           int q = 0;
-          this.gameController.enemies.forEach((enemy) {
+          gameController.enemies.forEach((enemy) {
             if (enemy.enemyType == f.enemytype) {
               if (enemy.isCaptured) {
                 ++q;

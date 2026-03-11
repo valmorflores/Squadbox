@@ -1,15 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class EnemyText {
-  
- final GameController gameController;
- TextPainter painter;
- Offset position;
+  final GameController gameController;
+  late TextPainter painter;
+  late Offset position;
 
-EnemyText( {this.gameController} ){
+EnemyText({required this.gameController}) {
   painter = TextPainter( textAlign:  TextAlign.center,
   textDirection: TextDirection.ltr );
   position = Offset.zero;

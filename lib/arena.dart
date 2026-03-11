@@ -1,35 +1,27 @@
 import 'dart:ui';
-import 'package:SquadBox/controllers/gameController.dart';
+import 'package:squadbox/controllers/gameController.dart';
 
 class Arena {
   final GameController gameController;
 
-  List<List> arenalist;
+  late List<List<String>> arenalist;
 
-  Arena({this.gameController}) {
+  Arena({required this.gameController}) {
     arenalist = [];
 
     List<String> list = [];
-    for (int i = 0; i <= gameController.screenSize.height + 100; i++) {
+    for (int i = 0; i <= gameController.screenSize.height.toInt() + 100; i++) {
       list = [];
-      for (int j = 0; j <= gameController.screenSize.width + 100; j++) {
+      for (int j = 0; j <= gameController.screenSize.width.toInt() + 100; j++) {
         list.add('0');
       }
       arenalist.add(list);
     }
   }
 
-  Offset addblock({double top, double left, double height, double width}) {
-    double maxheight, maxwidht;
-    bool chegoulimite;
-    maxheight = 0;
-    maxwidht = 0;
-    if (left == null) {
-      left = 0;
-    }
-    if (top == null) {
-      top = 0;
-    }
+  Offset addblock(
+      {double top = 0, double left = 0, required double height, required double width}) {
+    double maxheight = 0, maxwidht = 0;
     for (double i = top; i < top + height; i++) {
       for (double j = left; j < left + width; j++) {
         if ((i >= 0) &&
@@ -62,8 +54,8 @@ class Arena {
 
   double areaocupada() {
     double ocupacao = 0;
-    for (int i = 0; i < this.gameController.screenSize.height; i++) {
-      for (int j = 0; j < this.gameController.screenSize.width; j++) {
+    for (int i = 0; i < this.gameController.screenSize.height.toInt(); i++) {
+      for (int j = 0; j < this.gameController.screenSize.width.toInt(); j++) {
         if (this.arenalist[i][j] != '0') {
           ++ocupacao;
         }

@@ -1,17 +1,17 @@
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
-import 'package:SquadBox/components/busted_text.dart';
-import 'package:SquadBox/components/escaped_text.dart';
+import 'package:squadbox/components/busted_text.dart';
+import 'package:squadbox/components/escaped_text.dart';
 import 'package:flame/components.dart';
 import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
-import 'package:SquadBox/components/blocks.dart';
-import 'package:SquadBox/components/mark.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_enemy.dart';
-import 'package:SquadBox/models/enum_game.dart';
-import 'package:SquadBox/models/enum_state.dart';
+import 'package:squadbox/components/blocks.dart';
+import 'package:squadbox/components/mark.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_enemy.dart';
+import 'package:squadbox/models/enum_game.dart';
+import 'package:squadbox/models/enum_state.dart';
 import '../models/enum_colision_blocktype_detect.dart';
 import 'enum_enemy.dart';
 import 'particle_explosion.dart';
@@ -23,33 +23,35 @@ class Enemy {
   int damage = 0;
   int dificuldade = 0;
 
-  double speed;
-  Rect enemyRect;
-  Rect enemyEyeRect;
+  late double speed;
+  late Rect enemyRect;
+  late Rect enemyEyeRect;
   bool isDead = false;
   bool isGoingToPrision = false;
   bool isGoingToEscape = false;
   bool isCaptured = false;
   bool isFree = false;
   bool isVisible = true;
-  EnemieDirection direcao;
-  EnemyType enemyType;
+  late EnemieDirection direcao;
+  late EnemyType enemyType;
   double size = 10;
   int walking = 0;
   int limited = 0;
   int qtdtolimited = 10;
-  BustedText bustedText;
-  EscapedText escapedText;
+  BustedText? bustedText;
+  EscapedText? escapedText;
 
-  Enemy(
-      {this.gameController,
-      double x,
-      double y,
-      int difficulty = 50,
-      isFree = false,
-      this.enemyType: EnemyType.gangster}) {
+  Enemy({
+    required this.gameController,
+    required double x,
+    required double y,
+    int difficulty = 50,
+    bool isFree = false,
+    EnemyType enemyType = EnemyType.gangster,
+  }) {
     health = 100;
     dificuldade = difficulty;
+    this.enemyType = enemyType;
     speed = this.gameController.tileSize * dificuldade;
     direcao = EnemieDirection.righdown;
     if (enemyType == EnemyType.gangster) {
@@ -98,12 +100,12 @@ class Enemy {
     Paint enemyEyeColor = Paint()..color = color;
     c.drawRect(enemyEyeRect, enemyEyeColor);
 
-    if (this.bustedText != null) {
-      this.bustedText.render(c);
+    if (bustedText != null) {
+      bustedText!.render(c);
     }
 
-    if (this.escapedText != null) {
-      this.escapedText.render(c);
+    if (escapedText != null) {
+      escapedText!.render(c);
     }
   }
 
@@ -196,10 +198,7 @@ class Enemy {
           // Fazer contagem de inimigos e jogar no score
           this.gameController.score +=
               this.enemyRect.top <= 0 && !isDead ? 1 : 0;
-          int high = this.gameController.storage.getInt('highscore');
-          if (high == null) {
-            high = 0;
-          }
+          int high = this.gameController.storage.getInt('highscore') ?? 0;
           if (this.gameController.score > high) {
             this
                 .gameController
@@ -244,19 +243,19 @@ class Enemy {
         }
       }
       //Eliminate busted message
-      if (this.bustedText != null) {
-        if (this.bustedText.destroy()) {
-          this.bustedText = null;
+      if (bustedText != null) {
+        if (bustedText!.destroy()) {
+          bustedText = null;
         } else {
-          this.bustedText.update(t);
+          bustedText!.update(t);
         }
       }
       //Eliminate escaped message
-      if (this.escapedText != null) {
-        if (this.escapedText.destroy()) {
-          this.escapedText = null;
+      if (escapedText != null) {
+        if (escapedText!.destroy()) {
+          escapedText = null;
         } else {
-          this.escapedText.update(t);
+          escapedText!.update(t);
         }
       }
     }
@@ -355,7 +354,7 @@ class Enemy {
   }
 
   bool detectColisionBlocks(ColisionBlockTypeDetect colisionBlockTypeDetect) {
-    Offset posicao;
+    Offset? posicao;
     bool lcolide = false;
     this.gameController.blocks.forEach((Blocks element) {
       //element.colide(enemyRect));
@@ -369,7 +368,7 @@ class Enemy {
         posicao = Offset(enemyRect.right, enemyRect.top);
       }
       if (posicao != null && element.blockRect != null) {
-        if (element.blockRect.contains(posicao)) {
+        if (element.blockRect.contains(posicao!)) {
           if (direcao == EnemieDirection.leftdown) {
             if ((posicao.dx + 10 >= element.blockRect.right) &&
                 (posicao.dy - 10 <= element.blockRect.top)) {
@@ -440,7 +439,6 @@ class Enemy {
               ColisionBlockTypeDetect.onlyPortal) {
             if (element.isPortal) {
               lcolide = true;
-              return lcolide;
             }
           }
         }
@@ -451,7 +449,7 @@ class Enemy {
   }
 
   bool detectColisionMarks() {
-    Offset posicao;
+    Offset posicao = Offset.zero;
     bool lcolide = false;
     this.gameController.marks.forEach((Mark element) {
       //element.colide(enemyRect));

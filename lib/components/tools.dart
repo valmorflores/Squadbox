@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:SquadBox/components/blocks.dart';
-import 'package:SquadBox/components/tools/block_cut.dart';
-import 'package:SquadBox/components/tools/block_energy.dart';
-import 'package:SquadBox/components/tools/block_normal.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_state.dart';
-import 'package:SquadBox/models/enum_tools.dart';
+import 'package:squadbox/components/blocks.dart';
+import 'package:squadbox/components/tools/block_cut.dart';
+import 'package:squadbox/components/tools/block_energy.dart';
+import 'package:squadbox/components/tools/block_normal.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_state.dart';
+import 'package:squadbox/models/enum_tools.dart';
 
 class Tools {
   double position;

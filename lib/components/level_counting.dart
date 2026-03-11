@@ -3,19 +3,18 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_state.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_state.dart';
 
 class LevelCounting {
-  
- final GameController gameController;
- TextPainter painter;
- TextPainter paintersecondary;
- String texto;
- Offset position, positionsecondary;
- Rect respawnRect;
+  final GameController gameController;
+  late TextPainter painter;
+  late TextPainter paintersecondary;
+  late String texto;
+  late Offset position, positionsecondary;
+  late Rect respawnRect;
 
-LevelCounting( {this.gameController} ){
+LevelCounting({required this.gameController}) {
   painter = TextPainter( textAlign:  TextAlign.center,
   textDirection: TextDirection.ltr );
   position = Offset.zero;

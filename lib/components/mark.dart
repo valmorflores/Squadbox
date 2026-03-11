@@ -2,35 +2,33 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:SquadBox/controllers/gameController.dart';
-import 'package:SquadBox/models/enum_coordinates.dart';
-import 'package:SquadBox/models/enum_mark.dart';
+import 'package:squadbox/controllers/gameController.dart';
+import 'package:squadbox/models/enum_coordinates.dart';
+import 'package:squadbox/models/enum_mark.dart';
 
 import 'blocks.dart';
 
 class Mark {
-  GameController gameController;
-  Rect markRect;
-  MarkDirection direcaoMark;
-  double left;
-  double top;
-  double width;
-  double height;
-  Color color;
+  final GameController gameController;
+  late Rect markRect;
+  late MarkDirection direcaoMark;
+  final double left;
+  final double top;
+  final double width;
+  final double height;
+  late Color color;
   bool isDead = false;
 
-  Mark(
-      {this.gameController,
-      this.left,
-      this.top,
-      this.width,
-      this.height,
-      MarkDirection direction = MarkDirection.vertical}) {
-    this.direcaoMark = direction;
-    double barWidth = gameController.screenSize.width * 1;
-
-    this.color = Color.fromRGBO(255, 255, 255, 1 * 50 / 100);
-
+  Mark({
+    required this.gameController,
+    required this.left,
+    required this.top,
+    required this.width,
+    required this.height,
+    MarkDirection direction = MarkDirection.vertical,
+  }) {
+    direcaoMark = direction;
+    color = const Color.fromRGBO(255, 255, 255, 0.5);
     markRect = Rect.fromLTWH(left, top, width, height);
   }
 
