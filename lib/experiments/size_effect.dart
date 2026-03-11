@@ -9,7 +9,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class SizeEffectGame extends StatefulWidget {
-  const SizeEffectGame({Key key}) : super(key: key);
+  const SizeEffectGame({Key? key}) : super(key: key);
 
   @override
   State<SizeEffectGame> createState() => _SizeEffectGameState();
@@ -32,7 +32,7 @@ class SizeEffectExample extends FlameGame with TapDetector {
     down, depending on its current state.
   ''';
 
-  Component shape;
+  late Component shape;
   bool grow = true;
 
   @override

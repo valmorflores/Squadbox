@@ -318,19 +318,19 @@ class MyGame extends GameController {
     }
   }
   @override
-  void startgetprefs() async {
-    super.startgetprefs();
+  Future<void> startgetprefs() async {
+    await super.startgetprefs();
   }
 
   getStatus() {
-    final storedLevel = storage.getInt('level') ?? 0;
+    final storedLevel = storage?.getInt('level') ?? 0;
     if (storedLevel > 1) {
       level = storedLevel;
     }
   }
 
   int getHightScore() {
-    final highScore = storage.getInt('highscore') ?? 0;
+    final highScore = storage?.getInt('highscore') ?? 0;
     if (highScore > 1) {
       return highScore;
     }

@@ -7,25 +7,32 @@ import 'package:squadbox/models/enum_tools.dart';
 
 
 class BlockNormal extends Blocks{ 
-  GameController gameController;
-  ToolsArea toolArea;
-  double top, left, width, height;
-  Rect normalRect1, normalRect2, normalRect3;
+  final GameController gameController;
+  final ToolsArea? toolArea;
+  final double top, left, width, height;
+  late Rect normalRect1, normalRect2, normalRect3;
   Color blockColor;
   
-  BlockNormal({this.gameController, this.toolArea, this.top,
-       this.left, this.width, this.height, this.blockColor = Colors.lightBlueAccent }){
-     this.gameController = gameController;
-     super.top = top;
-     super.left = left;
-     super.width = this.gameController.toolSize;
-     super.height = this.gameController.toolSize;
-     super.blockColor = Colors.lightBlueAccent;
-     super.isEnergy = true;
-     super.isSobreposto = true;
-     super.blockRect = Rect.fromLTWH( left, top, width, height );
+  BlockNormal({
+    required this.gameController,
+    this.toolArea,
+    required this.top,
+    required this.left,
+    required this.width,
+    required this.height,
+    this.blockColor = Colors.lightBlueAccent,
+  }) : super(
+          gameController: gameController,
+          left: left,
+          top: top,
+          width: width,
+          height: height,
+          blockColor: Colors.lightBlueAccent,
+          isSpoiled: true,
+          isSobreposto: true,
+        ){
      normalRect1 = Rect.fromLTWH( left + 5, top + 5, width - 10, height - 10 );
-      
+     // normalRect2/3 não usados neste bloco
   }
 
   @override 

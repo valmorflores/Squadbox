@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flame_noise/flame_noise.dart';
 
 class BouncingBallGame extends StatefulWidget {
-  const BouncingBallGame({Key key}) : super(key: key);
+  const BouncingBallGame({Key? key}) : super(key: key);
 
   @override
   State<BouncingBallGame> createState() => _BouncingBallGameState();
@@ -40,7 +40,7 @@ class BouncingBall extends FlameGame with HasCollisionDetection {
 
 class Ball extends CircleComponent
     with HasGameRef<FlameGame>, CollisionCallbacks {
-  Vector2 velocity;
+  late Vector2 velocity;
   final paint3 = Paint()..color = const Color(0xffb372dc);
 
   Ball() {
@@ -86,7 +86,7 @@ class Ball extends CircleComponent
 
   double get getSpawnAngle {
     final random = math.Random().nextDouble();
-    final spawnAngle = lerpDouble(0, 360, random);
+    final spawnAngle = lerpDouble(0, 360, random) ?? 0;
 
     return spawnAngle;
   }

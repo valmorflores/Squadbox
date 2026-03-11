@@ -42,14 +42,14 @@ import 'package:squadbox/screens/view_video_get_live.dart';
 import '../components/timer_text.dart';
 
 class GameController extends FlameGame {
-  SharedPreferences storage;
-  Size screenSize;
-  BuildContext context;
-  ToolsType toolsType;
-  Arena arena;
+  SharedPreferences? storage;
+  Size screenSize = Size.zero;
+  BuildContext? context;
+  ToolsType toolsType = ToolsType.none;
+  late Arena arena;
   double tileSize = 10;
   double toolSize = 50;
-  Player player;
+  late Player player;
   List<Enemy> enemies = []; // = new Enemy(5);
   List<Blocks> blocks = [];
   List<Mark> marks = [];
@@ -62,28 +62,28 @@ class GameController extends FlameGame {
   double _admobHeight = 50;
   double ocupacao = 0;
   bool firstTap = false;
-  HealthBar healthBar;
-  ScoreText scoreText;
-  LevelText levelText;
-  TimerText timerText;
-  HealthText healthText;
-  LevelWaitText levelWaitText;
-  LevelCounting levelCounting;
-  LevelGameOverText levelGameOverText;
-  Offset vdragposition;
-  Offset hdragposition;
-  StateGame state;
-  OcupacaoText ocupacaoText;
-  DesafioStatus desafioStatus;
-  EnemyText enemyText;
-  Desafios desafios;
-  Tools tools;
-  LevelPercent levelPercent;
+  late HealthBar healthBar;
+  late ScoreText scoreText;
+  late LevelText levelText;
+  late TimerText timerText;
+  late HealthText healthText;
+  late LevelWaitText levelWaitText;
+  late LevelCounting levelCounting;
+  late LevelGameOverText levelGameOverText;
+  Offset vdragposition = Offset.zero;
+  Offset hdragposition = Offset.zero;
+  StateGame state = StateGame.menu;
+  late OcupacaoText ocupacaoText;
+  late DesafioStatus desafioStatus;
+  late EnemyText enemyText;
+  late Desafios desafios;
+  late Tools tools;
+  late LevelPercent levelPercent;
 
-  GameLevel gameLevel;
+  late GameLevel gameLevel;
 
-  Timer interval;
-  int elapsedSecs;
+  late Timer interval;
+  int elapsedSecs = 0;
 
   GameController() {
     initialize();
@@ -111,11 +111,9 @@ class GameController extends FlameGame {
     }
 
     if (this.storage != null) {
-      int thelevel = this.storage.getInt('level');
-      if (thelevel != null) {
-        if (thelevel > this.level) {
-          this.level = thelevel;
-        }
+      int? thelevel = this.storage!.getInt('level');
+      if (thelevel != null && thelevel > this.level) {
+        this.level = thelevel;
       }
     } else {
       // Erro no storage de level
@@ -124,8 +122,8 @@ class GameController extends FlameGame {
     if (context == null) {
       this.screenSize = Size(400, 400);
     } else {
-      this.screenSize = Size(MediaQuery.of(context).size.width,
-          MediaQuery.of(context).size.height);
+      this.screenSize = Size(MediaQuery.of(context!).size.width,
+          MediaQuery.of(context!).size.height);
     }
     this.player = Player(this);
     this.arena = Arena(gameController: this);
@@ -287,7 +285,7 @@ class GameController extends FlameGame {
   }
 
   void resetlevels(int value) {
-    this.storage.setInt('level', value);
+    this.storage?.setInt('level', value);
     this.level = value;
   }
 
@@ -365,8 +363,10 @@ class GameController extends FlameGame {
     */
     // }
 
-    // run and wait
-    _navigateAndWait(this.context);
+    // run and wait (context is ensured non-null when called)
+    if (this.context != null) {
+      _navigateAndWait(this.context!);
+    }
   }
 
   _navigateAndWait(BuildContext context) async {
@@ -703,6 +703,9 @@ class GameController extends FlameGame {
         (inBottomRight >= inBottomLeft)) {
       return Coordinates.bottomRight;
     }
+
+    // fallback seguro
+    return Coordinates.topLeft;
   }
 
   Coordinates quadranteMaisImportanteHorizontal(double lin) {
@@ -786,7 +789,7 @@ class GameController extends FlameGame {
         isSpoiled: true));
   }
 
-  void startgetprefs() async {
+  Future<void> startgetprefs() async {
     this.storage = await SharedPreferences.getInstance();
   }
 }

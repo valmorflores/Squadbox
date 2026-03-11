@@ -15,7 +15,9 @@ import 'level_001_builder.dart';
 class Level001048 extends Level001builder {
   final GameController gameController;
 
-  Level001048({required this.gameController}) {
+  Level001048({required GameController gameController})
+      : gameController = gameController,
+        super(gameController: gameController) {
     List<String> map = [
       'R_____111111111111________________R',
       'R___1_1___G___________1___________R',

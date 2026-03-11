@@ -8,9 +8,9 @@ import '../tools/block_energy.dart';
 import '../tools/block_portal.dart';
 
 class Level001builder {
-  GameController gameController;
+  final GameController gameController;
 
-  Level001builder({this.gameController}) {}
+  Level001builder({required this.gameController});
 
   void design(map, lin, col) {
     map.forEach((element) {

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flame/components.dart' hide Timer;
 import 'package:flame/game.dart';
@@ -9,7 +10,7 @@ import 'package:flame/timer.dart' as flame_timer;
 import 'package:flutter/material.dart' hide Image;
 
 class ParticleEffectGame extends StatefulWidget {
-  const ParticleEffectGame({Key key}) : super(key: key);
+  const ParticleEffectGame({Key? key}) : super(key: key);
 
   @override
   State<ParticleEffectGame> createState() => _ParticleEffectGameState();
@@ -38,7 +39,7 @@ class ParticlesEffects extends FlameGame {
   /// Miscellaneous values used
   /// by examples below
   final Random rnd = Random();
-  Timer spawnTimer;
+  Timer? spawnTimer;
   final StepTween steppedTween = StepTween(begin: 0, end: 5);
   final trafficLight = TrafficLightComponent();
 
@@ -240,11 +241,12 @@ class ParticlesEffects extends FlameGame {
         Offset.zero,
         particle.progress * halfCellSize.x,
         Paint()
-          ..color = Color.lerp(
-            Colors.red,
-            Colors.blue,
-            particle.progress,
-          ),
+          ..color = (Color.lerp(
+                Colors.red,
+                Colors.blue,
+                particle.progress,
+              ) ??
+              Colors.red),
       ),
     );
   }
@@ -264,18 +266,19 @@ class ParticlesEffects extends FlameGame {
           Offset.zero,
           (1 - steppedProgress) * halfCellSize.x,
           Paint()
-            ..color = Color.lerp(
-              Colors.red,
-              Colors.blue,
-              steppedProgress,
-            ),
+            ..color = (Color.lerp(
+                  Colors.red,
+                  Colors.blue,
+                  steppedProgress,
+                ) ??
+                Colors.red),
         );
       },
     );
   }
 
   /// Particle which is used in example below
-  Particle reusableParticle;
+  Particle? reusableParticle;
 
   /// A burst of white circles which actually using a single circle
   /// as a form of optimization. Look for reusing parts of particle effects
@@ -287,7 +290,7 @@ class ParticlesEffects extends FlameGame {
       generator: (i) => MovingParticle(
         curve: Interval(rnd.nextDouble() * .1, rnd.nextDouble() * .8 + .1),
         to: randomCellVector2()..scale(.5),
-        child: reusableParticle,
+        child: reusableParticle!,
       ),
     );
   }
@@ -296,14 +299,15 @@ class ParticlesEffects extends FlameGame {
   /// Images are great examples of where assets should
   /// be reused across particles. See example below for more details.
   Particle imageParticle() {
-    /*return ImageParticle(
-      size: Vector2.all(24),
-      image: images.fromCache('zap.png'),
-    );*/
+    // Simple fallback particle to satisfy null-safety
+    return CircleParticle(
+      radius: 8.0,
+      paint: Paint()..color = Colors.white,
+    );
   }
 
   /// Particle which is used in example below
-  Particle reusableImageParticle;
+  Particle? reusableImageParticle;
 
   /// A single [imageParticle] is drawn 9 times
   /// in a grid within grid cell. Looks as 9 particles
@@ -324,7 +328,7 @@ class ParticlesEffects extends FlameGame {
           (i % perLine) * colWidth - halfCellSize.x + imageSize,
           (i ~/ perLine) * rowHeight - halfCellSize.y + imageSize,
         ),
-        child: reusableImageParticle,
+        child: reusableImageParticle!,
       ),
     );
   }
@@ -387,19 +391,15 @@ class ParticlesEffects extends FlameGame {
   /// [SpriteParticle] allows easily embed
   /// Flame's [Sprite] into the effect.
   Particle spriteParticle() {
-    /*return SpriteParticle(
-      sprite: Sprite(images.fromCache('zap.png')),
-      size: cellSize * .5,
-    );*/
+    // Fallback particle; original sprite-based version removed
+    return circle();
   }
 
   /// An [SpriteAnimationParticle] takes a Flame [SpriteAnimation]
   /// and plays it during the particle lifespan.
   Particle animationParticle() {
-    /*return SpriteAnimationParticle(
-      animation: getBoomAnimation(),
-      size: Vector2(128, 128),
-    );*/
+    // Fallback particle; original animation-based version removed
+    return circle();
   }
 
   /// [ComponentParticle] proxies particle lifecycle hooks
@@ -513,17 +513,15 @@ class ParticlesEffects extends FlameGame {
 
   /// Sample "explosion" animation for [SpriteAnimationParticle] example
   SpriteAnimation getBoomAnimation() {
-    /*const columns = 8;
-    const rows = 8;
-    const frames = columns * rows;
-    final spriteImage = images.fromCache('boom.png');
-    final spritesheet = SpriteSheet.fromColumnsAndRows(
-      image: spriteImage,
-      columns: columns,
-      rows: rows,
-    );
-    final sprites = List<Sprite>.generate(frames, spritesheet.getSpriteById);
-    return SpriteAnimation.spriteList(sprites, stepTime: 0.1);*/
+    // Dummy one-frame animation to satisfy null-safety; not used in current sample
+    final paint = Paint()..color = Colors.white;
+    final pictureRecorder = ui.PictureRecorder();
+    final canvas = ui.Canvas(pictureRecorder);
+    const size = 10.0;
+    canvas.drawRect(const ui.Rect.fromLTWH(0, 0, size, size), paint);
+    final image = pictureRecorder.endRecording().toImageSync(size.toInt(), size.toInt());
+    final sprite = Sprite(image);
+    return SpriteAnimation.spriteList([sprite], stepTime: 0.1);
   }
 }
 

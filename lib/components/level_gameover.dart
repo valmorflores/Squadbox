@@ -16,14 +16,14 @@ class LevelGameOverText {
   late LevelHeart levelHeart;
 
   LevelGameOverText({required this.gameController}) {
-    painter = const TextPainter(
+    painter = TextPainter(
         textAlign: TextAlign.center, textDirection: TextDirection.ltr);
     position = Offset.zero;
-    painterTitle = const TextPainter(
+    painterTitle = TextPainter(
         textAlign: TextAlign.center, textDirection: TextDirection.ltr);
-    paintersecondary = const TextPainter(
+    paintersecondary = TextPainter(
         textAlign: TextAlign.center, textDirection: TextDirection.ltr);
-    paintermotive = const TextPainter(
+    paintermotive = TextPainter(
         textAlign: TextAlign.center, textDirection: TextDirection.ltr);
     respawnRect = Rect.fromLTWH(0, 0, gameController.screenSize.width,
         gameController.screenSize.height);

@@ -6,30 +6,31 @@ import 'package:squadbox/controllers/gameController.dart';
 import 'package:squadbox/models/enum_tools.dart';
 
 class BlockPortal extends Blocks {
-  GameController gameController;
-  ToolsArea toolArea;
-  double top, left, width, height;
-  Rect energyRect1, energyRect2, energyRect3;
+  final GameController gameController;
+  final ToolsArea? toolArea;
+  final double top, left, width, height;
+  late Rect energyRect1, energyRect2, energyRect3;
   Color blockColor;
 
-  BlockPortal(
-      {this.gameController,
+  BlockPortal({
+      required this.gameController,
       this.toolArea,
-      this.top,
-      this.left,
-      this.width,
-      this.height,
-      this.blockColor = Colors.amber}) {
-    this.gameController = gameController;
-    super.top = top;
-    super.left = left;
-    super.width = this.gameController.toolSize;
-    super.height = this.gameController.toolSize;
-    super.blockColor = Colors.amber;
-    super.isEnergy = true;
-    super.isSobreposto = true;
-    super.isPortal = true;
-    super.blockRect = Rect.fromLTWH(left, top, width, height);
+      required this.top,
+      required this.left,
+      required this.width,
+      required this.height,
+      this.blockColor = Colors.amber})
+      : super(
+          gameController: gameController,
+          left: left,
+          top: top,
+          width: width,
+          height: height,
+          blockColor: Colors.amber,
+          isSpoiled: true,
+          isPortal: true,
+          isSobreposto: true,
+        ) {
     energyRect1 = Rect.fromLTWH(left + 5, top + 5, width - 10, height - 10);
     energyRect2 = Rect.fromLTWH(left + 10, top + 10, width - 20, height - 20);
     energyRect3 = Rect.fromLTWH(left + 15, top + 15, width - 30, height - 30);

@@ -6,7 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'models/enum_game.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color corFundo = Colors.amber;//.redAccent;//Color.fromRGBO(50, 255, 255, 1);
   Color corVertical = Colors.blueAccent; //.fromRGBO(0, 0, 0, 0.25)
   Color corHorizontal = Colors.pink; //.fromRGBO(0, 0, 0, 0.25)
-  Ticker _ticker;
+  late Ticker _ticker;
 
    
 
@@ -318,7 +318,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _onDragStartVertical(BuildContext context, DragStartDetails start) {
     print(start.globalPosition.toString());
-    RenderBox getBox = context.findRenderObject();
+    final getBox = context.findRenderObject() as RenderBox;
     var local = getBox.globalToLocal(start.globalPosition);
     print(local.dx.toString() + "-" + local.dy.toString());
     _setvertical();
@@ -326,7 +326,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _onDragUpdateVertical(BuildContext context, DragUpdateDetails update) {
     //print(update.globalPosition.toString());
-    RenderBox getBox = context.findRenderObject();
+    final getBox = context.findRenderObject() as RenderBox;
     var local = getBox.globalToLocal(update.globalPosition);
     print(local.dx.toString() + "-" + local.dy.toString());
     _saveendvertical( local.dx, local.dy );
@@ -335,7 +335,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _onDragStart(BuildContext context, DragStartDetails start) {
     print('começou');
     print(start.globalPosition.toString());
-    RenderBox getBox = context.findRenderObject();
+    final getBox = context.findRenderObject() as RenderBox;
     var local = getBox.globalToLocal(start.globalPosition);
     print(local.dx.toString() + "|" + local.dy.toString());
     _savestart( local.dx, local.dy );
@@ -344,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   _onDragUpdate(BuildContext context, DragUpdateDetails update) {
     //print(update.globalPosition.toString());
-    RenderBox getBox = context.findRenderObject();
+    final getBox = context.findRenderObject() as RenderBox;
     var local = getBox.globalToLocal(update.globalPosition);
     _saveend( local.dx, local.dy );
     print(local.dx.toString() + "|" + local.dy.toString());

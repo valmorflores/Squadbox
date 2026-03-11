@@ -198,12 +198,12 @@ class Enemy {
           // Fazer contagem de inimigos e jogar no score
           this.gameController.score +=
               this.enemyRect.top <= 0 && !isDead ? 1 : 0;
-          int high = this.gameController.storage.getInt('highscore') ?? 0;
+          int high = this.gameController.storage?.getInt('highscore') ?? 0;
           if (this.gameController.score > high) {
             this
                 .gameController
                 .storage
-                .setInt('highscore', this.gameController.score);
+                ?.setInt('highscore', this.gameController.score);
           }
           isDead = (isDead || this.enemyRect.top <= 0);
         } else if (!isCaptured && !this.isGoingToEscape) {
@@ -368,26 +368,27 @@ class Enemy {
         posicao = Offset(enemyRect.right, enemyRect.top);
       }
       if (posicao != null && element.blockRect != null) {
-        if (element.blockRect.contains(posicao!)) {
+        final Offset p = posicao!;
+        if (element.blockRect.contains(p)) {
           if (direcao == EnemieDirection.leftdown) {
-            if ((posicao.dx + 10 >= element.blockRect.right) &&
-                (posicao.dy - 10 <= element.blockRect.top)) {
+            if ((p.dx + 10 >= element.blockRect.right) &&
+                (p.dy - 10 <= element.blockRect.top)) {
               direcao = EnemieDirection.rightup;
-            } else if ((posicao.dx + 10) >= element.blockRect.right) {
+            } else if ((p.dx + 10) >= element.blockRect.right) {
               direcao = EnemieDirection.righdown;
-            } else if (posicao.dy - 10 <= element.blockRect.top) {
+            } else if (p.dy - 10 <= element.blockRect.top) {
               direcao = EnemieDirection.leftup;
             } else {
               direcao = EnemieDirection.righdown;
             }
           } else if (direcao == EnemieDirection.leftup) {
-            if ((posicao.dy.toInt() <= element.blockRect.bottom.toInt()) &&
-                ((posicao.dx.toInt() == element.blockRect.right.toInt() ||
-                    posicao.dx.toInt() <= element.blockRect.left.toInt() ||
-                    posicao.dx.toInt() <= 0))) {
+            if ((p.dy.toInt() <= element.blockRect.bottom.toInt()) &&
+                ((p.dx.toInt() == element.blockRect.right.toInt() ||
+                    p.dx.toInt() <= element.blockRect.left.toInt() ||
+                    p.dx.toInt() <= 0))) {
               direcao = EnemieDirection.righdown;
-            } else if (posicao.dy <= element.blockRect.bottom) {
-              if (posicao.dx + 10 <= element.blockRect.right) {
+            } else if (p.dy <= element.blockRect.bottom) {
+              if (p.dx + 10 <= element.blockRect.right) {
                 direcao = EnemieDirection.leftdown;
               } else {
                 direcao = EnemieDirection.rightup;
@@ -396,14 +397,14 @@ class Enemy {
               direcao = EnemieDirection.rightup;
             }
           } else if (direcao == EnemieDirection.rightup) {
-            if ((posicao.dy.toInt() <= element.blockRect.bottom.toInt() + 1) &&
-                ((posicao.dx.toInt() >= element.blockRect.right.toInt() ||
-                    posicao.dx.toInt() <= element.blockRect.left.toInt() ||
-                    posicao.dx.toInt() >=
+            if ((p.dy.toInt() <= element.blockRect.bottom.toInt() + 1) &&
+                ((p.dx.toInt() >= element.blockRect.right.toInt() ||
+                    p.dx.toInt() <= element.blockRect.left.toInt() ||
+                    p.dx.toInt() >=
                         this.gameController.screenSize.width - 1))) {
               direcao = EnemieDirection.leftdown;
-            } else if (posicao.dy <= element.blockRect.bottom) {
-              if (posicao.dx - 10 <= element.blockRect.left) {
+            } else if (p.dy <= element.blockRect.bottom) {
+              if (p.dx - 10 <= element.blockRect.left) {
                 direcao = EnemieDirection.leftup;
               } else {
                 direcao = EnemieDirection.righdown;
@@ -412,14 +413,14 @@ class Enemy {
               direcao = EnemieDirection.leftup;
             }
           } else if (direcao == EnemieDirection.righdown) {
-            if (posicao.dy.toInt() == element.blockRect.top.toInt() &&
-                (posicao.dx.toInt() == element.blockRect.left.toInt() ||
-                    posicao.dx.toInt() >=
+            if (p.dy.toInt() == element.blockRect.top.toInt() &&
+                (p.dx.toInt() == element.blockRect.left.toInt() ||
+                    p.dx.toInt() >=
                         this.gameController.screenSize.width)) {
               direcao = EnemieDirection.leftup;
-            } else if (posicao.dy - 10 <= element.blockRect.top) {
+            } else if (p.dy - 10 <= element.blockRect.top) {
               direcao = EnemieDirection.rightup;
-            } else if (posicao.dx - 10 <= element.blockRect.left) {
+            } else if (p.dx - 10 <= element.blockRect.left) {
               direcao = EnemieDirection.leftdown;
             } else {
               direcao = EnemieDirection.leftdown;

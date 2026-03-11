@@ -6,7 +6,7 @@ class Player {
   final GameController gameController;
   int maxHealt = 1024;
   int currentHealt = 1024;
-  Rect playerRect;
+  late Rect playerRect;
   bool isDead = false;
   final double size = 5;
 

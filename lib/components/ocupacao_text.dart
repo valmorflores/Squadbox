@@ -5,33 +5,39 @@ import 'package:squadbox/controllers/gameController.dart';
 import 'package:squadbox/models/enum_state.dart';
 
 class OcupacaoText {
-  
- final GameController gameController;
- TextPainter painter;
- TextPainter painterobjetivo;
- Offset position;
- Offset positionobjetivo;
- Rect ocupacaoRect;
- Rect ocupacaoEvolutionRect;
- Rect objectivoRect;
+  final GameController gameController;
+  late TextPainter painter;
+  late TextPainter painterobjetivo;
+  late Offset position;
+  late Offset positionobjetivo;
+  late Rect ocupacaoRect;
+  late Rect ocupacaoEvolutionRect;
+  late Rect objectivoRect;
  double espaco = 80;
  double altura = 30;
  double posicaotop = 10;
  double posicaoleft =  10;
  
 
-OcupacaoText( {this.gameController} ){
-  painter = TextPainter( textAlign:  TextAlign.right,
-  textDirection: TextDirection.ltr );
-  position = Offset.zero;
-  painterobjetivo = TextPainter( textAlign:  TextAlign.right,
-  textDirection: TextDirection.ltr ); 
-  ocupacaoRect = Rect.fromLTWH( this.posicaoleft, this.posicaotop, this.espaco, this.altura );
-  ocupacaoEvolutionRect = Rect.fromLTWH( this.posicaoleft, this.posicaotop, 1, 1 );
-  objectivoRect =  Rect.fromLTWH( this.posicaoleft + this.espaco - 10, this.posicaotop + 20, 20, 20 );
-  positionobjetivo = Offset( this.posicaoleft + this.espaco - 8, this.posicaotop + 22 );
-  //painterobjetivo.text = TextSpan( text: this.gameController.gameLevel.percentual.toStringAsPrecision(2) );
-}
+  OcupacaoText({required this.gameController}) {
+    painter = TextPainter(
+      textAlign: TextAlign.right,
+      textDirection: TextDirection.ltr,
+    );
+    position = Offset.zero;
+    painterobjetivo = TextPainter(
+      textAlign: TextAlign.right,
+      textDirection: TextDirection.ltr,
+    );
+    ocupacaoRect =
+        Rect.fromLTWH(this.posicaoleft, this.posicaotop, this.espaco, this.altura);
+    ocupacaoEvolutionRect =
+        Rect.fromLTWH(this.posicaoleft, this.posicaotop, 1, 1);
+    objectivoRect = Rect.fromLTWH(
+        this.posicaoleft + this.espaco - 10, this.posicaotop + 20, 20, 20);
+    positionobjetivo =
+        Offset(this.posicaoleft + this.espaco - 8, this.posicaotop + 22);
+  }
 
 void render(Canvas c){
 

@@ -7,7 +7,7 @@ import 'package:flame/collisions.dart';
 import 'dart:math' as math;
 
 class MovementGame extends StatefulWidget {
-  MovementGame({Key key}) : super(key: key);
+  MovementGame({Key? key}) : super(key: key);
 
   @override
   State<MovementGame> createState() => MovementGameState();
@@ -58,7 +58,7 @@ class BoxGameMain extends FlameGame with HasCollisionDetection {
 
 class FixedBox extends CircleComponent
     with HasGameRef<FlameGame>, CollisionCallbacks {
-  Vector2 velocity;
+  late Vector2 velocity;
   final paint3 = Paint()..color = const Color(0xffb372dc);
   double positionX = 0;
   double positionY = 0;
@@ -98,7 +98,7 @@ class FixedBox extends CircleComponent
 /* Ball */
 class Ball extends CircleComponent
     with HasGameRef<FlameGame>, CollisionCallbacks {
-  Vector2 velocity;
+  late Vector2 velocity;
   final paint3 = Paint()..color = const Color(0xffb372dc);
 
   Ball() {
@@ -142,7 +142,7 @@ class Ball extends CircleComponent
 
   double get getSpawnAngle {
     final random = math.Random().nextDouble();
-    final spawnAngle = lerpDouble(0, 360, random);
+    final spawnAngle = lerpDouble(0, 360, random) ?? 0;
 
     return spawnAngle;
   }

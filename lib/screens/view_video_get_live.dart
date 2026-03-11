@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ViewVideoGetLive extends StatefulWidget {
   final String parametro;
 
-  ViewVideoGetLive({this.parametro}){
+  ViewVideoGetLive({required this.parametro}){
     print('Running here. Can show now?');
   }
 

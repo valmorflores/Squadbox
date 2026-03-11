@@ -5,14 +5,16 @@ import 'package:squadbox/controllers/gameController.dart';
 
 class ScoreText {
   
- final GameController gameController;
- TextPainter painter;
- Offset position;
+  final GameController gameController;
+  late TextPainter painter;
+  late Offset position;
 
-ScoreText( {this.gameController} ){
-  painter = TextPainter( textAlign:  TextAlign.right,
-  textDirection: TextDirection.ltr );
-  this.position = Offset.zero;
+  ScoreText({required this.gameController}) {
+    painter = TextPainter(
+      textAlign: TextAlign.right,
+      textDirection: TextDirection.ltr,
+    );
+    position = Offset.zero;
 
 }
 

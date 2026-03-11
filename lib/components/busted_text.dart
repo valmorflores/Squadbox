@@ -7,26 +7,32 @@ import 'package:flutter/painting.dart';
 
 class BustedText {
   String text = 'BUSTED';
-  GameController gameController;
+  final GameController gameController;
   double posx, posy;
-  double left, top;
+  final double left, top;
   bool posfinal = false;
   int vezes = 50;
   bool isDead = false;
   int velocity = 7;
   double size = 10;
   double taxazoom = 0.5;
-  TextPainter painter;
-  TextDirection textDirection;
-  Offset position;
+  late TextPainter painter;
+  TextDirection textDirection = TextDirection.ltr;
+  late Offset position;
   EnemyType enemyType;
 
-  BustedText({this.gameController, this.left, this.top, this.enemyType: EnemyType.gangster}){
-     posx = left;
-     posy = top;
-     painter = TextPainter( textAlign:  TextAlign.center,
-     textDirection: TextDirection.ltr );
-     position = Offset.zero;
+  BustedText({
+    required this.gameController,
+    required this.left,
+    required this.top,
+    this.enemyType = EnemyType.gangster,
+  })  : posx = left,
+        posy = top {
+    painter = TextPainter(
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr,
+    );
+    position = Offset.zero;
   }
 
   void render( Canvas c ){

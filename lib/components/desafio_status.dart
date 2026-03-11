@@ -63,46 +63,36 @@ class DesafioStatus {
             painter.color = Colors.amber;
         }
         */
-      });
+      // antigo forEach removido para simplificar
       // Gangster
-      if ((painterGangster.text ?? '') != '0000') {
-        painterGangster.text = TextSpan(
-          text: this.gameController.enemyCountCaptured(EnemyType.gangster).toString() + ' / ' + this.gameController.desafios.countbyenemytype(EnemyType.gangster).toString(),
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
-          ),
-        );
-
-        painterGangster.layout();
-         
-      }
+      painterGangster.text = TextSpan(
+        text: '${gameController.enemyCountCaptured(EnemyType.gangster)} / ${gameController.desafios.countbyenemytype(EnemyType.gangster)}',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 15.0,
+        ),
+      );
+      painterGangster.layout();
 
       // Gerente
-      if ((painterGerente.text ?? '') != '0000') {
-        painterGerente.text = TextSpan(
-          text: this.gameController.enemyCountCaptured(EnemyType.gerente).toString() + '/' + 
-                this.gameController.desafios.countbyenemytype(EnemyType.gerente).toString(),
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
-          ),
-        );
-        painterGerente.layout();
-      }
+      painterGerente.text = TextSpan(
+        text: '${gameController.enemyCountCaptured(EnemyType.gerente)}/${gameController.desafios.countbyenemytype(EnemyType.gerente)}',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 15.0,
+        ),
+      );
+      painterGerente.layout();
       
       // Chefao
-      if ((painterChefao.text ?? '') != '0000') {
-        painterChefao.text = TextSpan(
-          text: this.gameController.enemyCountCaptured(EnemyType.chefao).toString() + '/' +
-                this.gameController.desafios.countbyenemytype(EnemyType.chefao).toString(),
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
-          ),
-        );
-        painterChefao.layout();
-      }
+      painterChefao.text = TextSpan(
+        text: '${gameController.enemyCountCaptured(EnemyType.chefao)}/${gameController.desafios.countbyenemytype(EnemyType.chefao)}',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 15.0,
+        ),
+      );
+      painterChefao.layout();
 
       // Alerta / Piscar
       int ini_gangsters = this.gameController.desafios.countbyenemytype(EnemyType.gangster); 

@@ -10,8 +10,9 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 
 class PersonagensGame extends StatefulWidget {
-  GameController gameController;
-  PersonagensGame({gameController, Key key}) : super(key: key);
+  final GameController gameController;
+
+  const PersonagensGame({Key? key, required this.gameController}) : super(key: key);
 
   @override
   State<PersonagensGame> createState() => PersonagensGameState();
@@ -26,22 +27,22 @@ class PersonagensGameState extends State<PersonagensGame> {
           actions: [
             InkWell(
                 onTap: () {
-                  gameController.resumeEngine();
+                  widget.gameController.resumeEngine();
                 },
-                child: Icon(Icons.play_arrow)),
+                child: const Icon(Icons.play_arrow)),
             InkWell(
                 onTap: () {
-                  gameController.pauseEngine();
+                  widget.gameController.pauseEngine();
                 },
-                child: Icon(Icons.pause)),
+                child: const Icon(Icons.pause)),
             InkWell(
                 onTap: () {
-                  gameController.restartRun();
+                  widget.gameController.restartRun();
                 },
-                child: Icon(Icons.refresh))
+                child: const Icon(Icons.refresh))
           ],
         ),
-        body: GameWidget(game: gameController));
+        body: GameWidget(game: widget.gameController));
   }
 }
 
@@ -52,7 +53,7 @@ class ComposabilityExample extends FlameGame {
     `PositionComponent`. This example is not interactive.
   ''';
 
-  ParentSquare parentSquare;
+  late ParentSquare parentSquare;
 
   @override
   bool debugMode = true;

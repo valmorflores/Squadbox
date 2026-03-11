@@ -13,7 +13,7 @@ class ParticleExplosion {
   final cellSize = Vector2(100, 100);
 
   final GameController gameController;
-  ParticleExplosion({this.gameController});
+  ParticleExplosion({required this.gameController});
 
   callParticle() {
     final particle = fireworkParticle();

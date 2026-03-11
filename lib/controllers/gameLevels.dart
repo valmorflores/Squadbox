@@ -49,9 +49,9 @@ class GameLevel {
   void up() {
     this.level++;
     gameController.level = gameController.level + 1;
-    final savedlevel = gameController.storage.getInt('level') ?? 0;
+    final savedlevel = gameController.storage?.getInt('level') ?? 0;
     if (gameController.level > savedlevel) {
-      gameController.storage.setInt('level', gameController.level);
+      gameController.storage?.setInt('level', gameController.level);
     }
   }
 
@@ -89,6 +89,7 @@ class GameLevel {
     print('Start' + this.enemies.toString());
     gameController.initialize();
     this.startlevel();
+    return 0;
   }
 
   void resetall() {

@@ -6,7 +6,7 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 
 class ComposabilityGame extends StatefulWidget {
-  const ComposabilityGame({Key key}) : super(key: key);
+  const ComposabilityGame({Key? key}) : super(key: key);
 
   @override
   State<ComposabilityGame> createState() => _ComposabilityGameState();
@@ -28,7 +28,7 @@ class ComposabilityExample extends FlameGame {
     `PositionComponent`. This example is not interactive.
   ''';
 
-  ParentSquare parentSquare;
+  late ParentSquare parentSquare;
 
   @override
   bool debugMode = true;

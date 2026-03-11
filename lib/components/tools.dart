@@ -9,33 +9,28 @@ import 'package:squadbox/models/enum_state.dart';
 import 'package:squadbox/models/enum_tools.dart';
 
 class Tools {
-  double position;
-  double height;
-  double limit;
-  double _admobHeight = 50;
-  GameController gameController;
-  Blocks toolRect;
-  List<ToolsItem> items;
+  late double position;
+  late double height;
+  late double limit;
+  final double _admobHeight = 50;
+  final GameController gameController;
+  late Blocks toolRect;
+  final List<ToolsItem> items = [];
 
-  Tools({this.gameController}) {
-    position = this.gameController.screenSize.height -
-        this.gameController.screenSize.height * 0.10;
-    height = this.gameController.screenSize.height * .10;
-    limit = this.gameController.screenSize.height - (height / 2);
-    toolRect = new Blocks(
-        gameController: this.gameController,
+  Tools({required this.gameController}) {
+    position = gameController.screenSize.height -
+        gameController.screenSize.height * 0.10;
+    height = gameController.screenSize.height * .10;
+    limit = gameController.screenSize.height - (height / 2);
+    toolRect = Blocks(
+        gameController: gameController,
         left: 0,
-        top: position -  this._admobHeight,
-        width: this.gameController.screenSize.width,
-        height: this._admobHeight + this.gameController.screenSize.height * .10,
-        blockColor: Color.fromRGBO(0, 0, 0, 0.07),
+        top: position - _admobHeight,
+        width: gameController.screenSize.width,
+        height: _admobHeight + gameController.screenSize.height * .10,
+        blockColor: const Color.fromRGBO(0, 0, 0, 0.07),
         isSpoiled: false);
-    this.gameController.blocks.add(toolRect);
-    this.items = [];
-
-    void add(ToolsItem item) {
-      this.items.add(item);
-    }
+    gameController.blocks.add(toolRect);
   }
 
   void update(double t) {
@@ -84,14 +79,14 @@ class Tools {
     if (this.gameController.state == StateGame.playing) {
       this.items.forEach((ToolsItem f) {
         if (f.itemBlockEnergy != null) {
-          if (f.itemBlockEnergy.blockRect.contains(d.globalPosition)) {
+          if (f.itemBlockEnergy!.blockRect.contains(d.globalPosition)) {
             resposta = ToolsType.add_energyblock;
             unselectall();
             f.isSelect = true;
           }
         }
         if (f.itemBlockNormal != null) {          
-          if (f.itemBlockNormal.blockRect.contains(d.globalPosition)) {
+          if (f.itemBlockNormal!.blockRect.contains(d.globalPosition)) {
             resposta = ToolsType.add_normalblock;
             unselectall();
             f.isSelect = true;
@@ -113,24 +108,29 @@ class ToolsItem {
   ToolsType tooltype;
   String name;
   int quantidade;
-  BlockEnergy itemBlockEnergy;
-  BlockNormal itemBlockNormal;
-  BlockCut itemBlockCut;
+  BlockEnergy? itemBlockEnergy;
+  BlockNormal? itemBlockNormal;
+  BlockCut? itemBlockCut;
   GameController gameController;
-  bool isSelect;
-  Rect selectRect;
-  Rect selectRectNormal;
-  Rect selectRectCut;
-  TextPainter painter;
-  TextPainter painterNormal;
-  TextPainter painterCut;
-  TextPainter paintersecondary;
-  Offset position, positionNormal, positionCut, positionsecondary;
-  Rect boxTexto;
-  Rect boxTextoNormal;
-  Rect boxTextoCut;
+  bool isSelect = false;
+  Rect? selectRect;
+  Rect? selectRectNormal;
+  Rect? selectRectCut;
+  TextPainter? painter;
+  TextPainter? painterNormal;
+  TextPainter? painterCut;
+  TextPainter? paintersecondary;
+  Offset? position, positionNormal, positionCut, positionsecondary;
+  Rect? boxTexto;
+  Rect? boxTextoNormal;
+  Rect? boxTextoCut;
 
-  ToolsItem({this.gameController, this.name, this.tooltype, this.quantidade}) {
+  ToolsItem({
+    required this.gameController,
+    required this.name,
+    required this.tooltype,
+    required this.quantidade,
+  }) {
     double _admobHeight = 50;
     if (this.tooltype == ToolsType.add_energyblock) {
       itemBlockEnergy = BlockEnergy(
@@ -140,10 +140,10 @@ class ToolsItem {
           width: 35,
           height: 35);
       selectRect = Rect.fromLTWH(
-          itemBlockEnergy.left - 6,
-          itemBlockEnergy.top - 6,
-          itemBlockEnergy.width + 12,
-          itemBlockEnergy.height + 12);
+          itemBlockEnergy!.left - 6,
+          itemBlockEnergy!.top - 6,
+          itemBlockEnergy!.width + 12,
+          itemBlockEnergy!.height + 12);
       this.isSelect = false;
       painter = TextPainter(
           textAlign: TextAlign.center, textDirection: TextDirection.ltr);
@@ -159,10 +159,10 @@ class ToolsItem {
           width: 35,
           height: 35);
       selectRectNormal = Rect.fromLTWH(
-          itemBlockNormal.left - 6,
-          itemBlockNormal.top - 6,
-          itemBlockNormal.width + 12,
-          itemBlockNormal.height + 12);
+          itemBlockNormal!.left - 6,
+          itemBlockNormal!.top - 6,
+          itemBlockNormal!.width + 12,
+          itemBlockNormal!.height + 12);
       this.isSelect = false;
       painterNormal = TextPainter(
           textAlign: TextAlign.center, textDirection: TextDirection.ltr);
@@ -178,10 +178,10 @@ class ToolsItem {
           width: 35,
           height: 35);
       selectRectCut = Rect.fromLTWH(
-          itemBlockCut.left - 6,
-          itemBlockCut.top - 6,
-          itemBlockCut.width + 12,
-          itemBlockCut.height + 12);
+          itemBlockCut!.left - 6,
+          itemBlockCut!.top - 6,
+          itemBlockCut!.width + 12,
+          itemBlockCut!.height + 12);
       this.isSelect = false;
       painterCut = TextPainter(
           textAlign: TextAlign.center, textDirection: TextDirection.ltr);
@@ -196,47 +196,47 @@ class ToolsItem {
       //select.
       if (this.isSelect) {
         Paint cor3 = Paint()..color = Colors.black38;
-        c.drawRect(selectRect, cor3);
+        c.drawRect(selectRect!, cor3);
       }
-      itemBlockEnergy.render(c);
+      itemBlockEnergy!.render(c);
       Paint cor4 = Paint()
         ..color = this.quantidade > 0 ? Colors.green : Colors.blueGrey;
-      c.drawRect(boxTexto, cor4);
-      painter.paint(c, position);
+      c.drawRect(boxTexto!, cor4);
+      painter!.paint(c, position!);
     }
     if (itemBlockNormal != null) {
       //select.
       if (this.isSelect) {
         Paint cor3 = Paint()..color = Colors.black38;
-        c.drawRect(selectRectNormal, cor3);
+        c.drawRect(selectRectNormal!, cor3);
       }
-      itemBlockNormal.render(c);
+      itemBlockNormal!.render(c);
       Paint cor4 = Paint()
         ..color = this.quantidade > 0 ? Colors.green : Colors.blueGrey;
-      c.drawRect(boxTextoNormal, cor4);
-      painterNormal.paint(c, positionNormal);
+      c.drawRect(boxTextoNormal!, cor4);
+      painterNormal!.paint(c, positionNormal!);
     }
     if (itemBlockCut != null) {
       //select.
       if (this.isSelect) {
         Paint cor3 = Paint()..color = Colors.black38;
-        c.drawRect(selectRectCut, cor3);
+        c.drawRect(selectRectCut!, cor3);
       }
-      itemBlockCut.render(c);
+      itemBlockCut!.render(c);
       Paint cor4 = Paint()
         ..color = this.quantidade > 0 ? Colors.green : Colors.blueGrey;
-      c.drawRect(boxTextoCut, cor4);
-      painterCut.paint(c, positionCut);
+      c.drawRect(boxTextoCut!, cor4);
+      painterCut!.paint(c, positionCut!);
     }
   }
 
   void update(double t) {
     if (itemBlockEnergy != null) {
-      itemBlockEnergy.update(t);
-      boxTexto = Rect.fromLTWH(itemBlockEnergy.blockRect.left + 17,
-          itemBlockEnergy.blockRect.bottom - 7, 25, 18);
-      if ((painter.text ?? '') != this.quantidade.toString()) {
-        painter.text = TextSpan(
+      itemBlockEnergy!.update(t);
+      boxTexto = Rect.fromLTWH(itemBlockEnergy!.blockRect.left + 17,
+          itemBlockEnergy!.blockRect.bottom - 7, 25, 18);
+      if ((painter!.text?.toPlainText() ?? '') != this.quantidade.toString()) {
+        painter!.text = TextSpan(
           text: this.quantidade > 99 ? '99+' : this.quantidade.toString(),
           style: TextStyle(
             color: Colors.white,
@@ -244,10 +244,10 @@ class ToolsItem {
           ),
         );
 
-        painter.layout();
+        painter!.layout();
         position = Offset(
-          (itemBlockEnergy.blockRect.left + 20),
-          (itemBlockEnergy.blockRect.bottom - 7),
+          (itemBlockEnergy!.blockRect.left + 20),
+          (itemBlockEnergy!.blockRect.bottom - 7),
           /*,
                 ,*/
         );
@@ -255,11 +255,11 @@ class ToolsItem {
     }
 
     if (itemBlockNormal != null) {
-      itemBlockNormal.update(t);
-      boxTextoNormal = Rect.fromLTWH(itemBlockNormal.blockRect.left + 17,
-          itemBlockNormal.blockRect.bottom - 7, 25, 18);
-      if ((painterNormal.text ?? '') != this.quantidade.toString()) {
-        painterNormal.text = TextSpan(
+      itemBlockNormal!.update(t);
+      boxTextoNormal = Rect.fromLTWH(itemBlockNormal!.blockRect.left + 17,
+          itemBlockNormal!.blockRect.bottom - 7, 25, 18);
+      if ((painterNormal!.text?.toPlainText() ?? '') != this.quantidade.toString()) {
+        painterNormal!.text = TextSpan(
           text: this.quantidade > 99 ? '99+' : this.quantidade.toString(),
           style: TextStyle(
             color: Colors.white,
@@ -267,10 +267,10 @@ class ToolsItem {
           ),
         );
 
-        painterNormal.layout();
+        painterNormal!.layout();
         positionNormal = Offset(
-          (itemBlockNormal.blockRect.left + 20),
-          (itemBlockNormal.blockRect.bottom - 7),
+          (itemBlockNormal!.blockRect.left + 20),
+          (itemBlockNormal!.blockRect.bottom - 7),
           /*,
                 ,*/
         );
@@ -278,11 +278,11 @@ class ToolsItem {
     }
 
     if (itemBlockCut != null) {
-      itemBlockCut.update(t);
-      boxTextoCut = Rect.fromLTWH(itemBlockCut.blockRect.left + 17,
-          itemBlockCut.blockRect.bottom - 7, 25, 18);
-      if ((painterCut.text ?? '') != this.quantidade.toString()) {
-        painterCut.text = TextSpan(
+      itemBlockCut!.update(t);
+      boxTextoCut = Rect.fromLTWH(itemBlockCut!.blockRect.left + 17,
+          itemBlockCut!.blockRect.bottom - 7, 25, 18);
+      if ((painterCut!.text?.toPlainText() ?? '') != this.quantidade.toString()) {
+        painterCut!.text = TextSpan(
           text: this.quantidade > 99 ? '99+' : this.quantidade.toString(),
           style: TextStyle(
             color: Colors.white,
@@ -290,10 +290,10 @@ class ToolsItem {
           ),
         );
 
-        painterCut.layout();
+        painterCut!.layout();
         positionCut = Offset(
-          (itemBlockCut.blockRect.left + 20),
-          (itemBlockCut.blockRect.bottom - 7),
+          (itemBlockCut!.blockRect.left + 20),
+          (itemBlockCut!.blockRect.bottom - 7),
           /*,
                 ,*/
         );

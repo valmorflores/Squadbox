@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flame_noise/flame_noise.dart';
 
 class NoiseEffectGame extends StatefulWidget {
-  const NoiseEffectGame({Key key}) : super(key: key);
+  const NoiseEffectGame({Key? key}) : super(key: key);
 
   @override
   State<NoiseEffectGame> createState() => _NoiseEffectGameState();
@@ -39,7 +39,7 @@ class NoiseEffect extends FlameGame with HasCollisionDetection {
 
 class Box extends CircleComponent
     with HasGameRef<FlameGame>, CollisionCallbacks {
-  Vector2 velocity;
+  late Vector2 velocity;
   final paint3 = Paint()..color = const Color(0xffb372dc);
 
   Box() {}
